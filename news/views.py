@@ -10,3 +10,4 @@ def index(request):
         'news_list': news_list,
     }
     return render(request, 'news.html', context)
+    # return HttpResponse("Hello, world. You're at the polls index.")
