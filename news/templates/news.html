@@ -1,11 +1,22 @@
 
 <html>
     <head>
-        <title>Cinervice in Django</title>
+        <title>Cinervice</title>
  </head>
     <body style="background-color:darkslateblue;">
         <div>
-            <h1 ><a style="color: floralwhite;" href="/">Cinervice in Django</a></h1>
+            <h1 ><a style="color: floralwhite; text-align: center;" href="/">Cinervice</a></h1>
+            {% if news_list %}
+                <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+                {% for news in news_list %}
+                    <h3><a style="color: floralwhite;" href="/news">{{ news.title }}</a></h3>
+                    <p style="color: floralwhite;">{{ news.body }}</p>
+                    <hr>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>No news are available.</p>
+            {% endif %}
         </div>
     </body>
 </html>
