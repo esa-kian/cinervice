@@ -8,11 +8,11 @@
 <<<<<<< HEAD
             <h1 ><a style="color: floralwhite;text-decoration:none" href="/">Cinervice in Django</a></h1>
 =======
-            <h1 ><a style="color: floralwhite; text-align: center;" href="/">Cinervice</a></h1>
+            <h1 ><a style="color: floralwhite; text-align: center;text-decoration:none;" href="/">Cinervice</a></h1>
             {% if news_list %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for news in news_list %}
-                    <h3><a style="color: floralwhite;" href="/news">{{ news.title }}</a></h3>
+                    <h3><a style="color: floralwhite;text-decoration:none;" href="/news">{{ news.title }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ news.image }}" width="600px" />
