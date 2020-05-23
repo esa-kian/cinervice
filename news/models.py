@@ -8,4 +8,4 @@ class New(models.Model):
     image = models.ImageField(upload_to='static/images/news/',null=True)
 
     def __str__(self):
-        return self.title   
+        return '%s \n %s \n %s \n' % (self.title, self.body, self.image)
