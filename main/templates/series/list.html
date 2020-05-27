@@ -1,11 +1,6 @@
-<html>
-    <head>
-        <title>Cinervice</title>
- </head>
-    <body style="background-color:darkslateblue;">
-        <div>
-            <h1 ><a style="color: floralwhite; text-align: center;text-decoration:none;" href="/">Cinervice</a></h1>
-            {% if list %}
+{% extends "base.html" %}
+    {% block content %}
+    {% if list %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for series in list %}
                     <h3><a style="color: floralwhite;text-decoration:none;" href="/series">{{ series.title }}</a></h3>
@@ -19,6 +14,4 @@
             {% else %}
                 <p>No series are available.</p>
             {% endif %}
-        </div>
-    </body>
-</html>
+    {% endblock %}
