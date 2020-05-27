@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Cinervice</title>
+ </head>
+    <body style="background-color:darkslateblue;">
+        <div>
+            <h1 ><a style="color: floralwhite; text-align: center;text-decoration:none;" href="/">Cinervice</a></h1>
+            {% if list %}
+                <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+                {% for movie_theater in list %}
+                    <h3><a style="color: floralwhite;text-decoration:none;" href="/movie_theater">{{ movie_theater.name }}</a></h3>
+                    {% load static %}
+
+                    <img src="../{{ movie_theater.image }}" width="600px" />
+                    <p style="color: floralwhite;">{{ movie_theater.address }}</p>
+                    <hr>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>No movie_theater are available.</p>
+            {% endif %}
+        </div>
+    </body>
+</html>

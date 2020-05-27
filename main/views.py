@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Movie,Series
+from .models import Movie, Series, People, Cinema
 
 # Create your views here.
 
@@ -20,3 +20,17 @@ def series(request):
         'list': series_list,
     }
     return render(request, 'series/list.html', context)
+
+def peoples(request):
+    people_list = People.objects.order_by('point')
+    context = {
+        'list': people_list
+    }
+    return render(request, 'peoples/list.html', context)
+
+def cinemas(request):
+    cinema_list = Cinema.objects.order_by('point')
+    context = {
+        'list': cinema_list
+    }
+    return render(request, 'cinemas/list.html', context)
