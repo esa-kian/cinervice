@@ -5,9 +5,12 @@ body {
   
   .topnav {
     overflow: hidden;
-    background-color: blue;
+    background-color:blue;
+    position: sticky;
+    top: 0;
   }
   
+
   .topnav a {
     float: left;
     color: whitesmoke;
