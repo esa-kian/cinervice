@@ -1,10 +1,5 @@
-<html>
-    <head>
-        <title>Cinervice</title>
- </head>
-    <body style="background-color:darkslateblue;">
-        <div>
-            <h1 ><a style="color: floralwhite; text-align: center;text-decoration:none;" href="/">Cinervice</a></h1>
+{% extends "base.html" %}
+    {% block content %}
             {% if news_list %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for news in news_list %}
@@ -19,6 +14,4 @@
             {% else %}
                 <p>No news are available.</p>
             {% endif %}
-        </div>
-    </body>
-</html>
+    {% endblock %}

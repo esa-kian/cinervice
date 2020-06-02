@@ -14,12 +14,18 @@ def movies(request):
     }
     return render(request, 'movies/list.html', context)
 
+def movie_info(request):
+    pass
+
 def series(request):
     series_list = Series.objects.order_by('point')
     context = {
         'list': series_list,
     }
     return render(request, 'series/list.html', context)
+
+def seri_info(request):
+    pass
 
 def peoples(request):
     people_list = People.objects.order_by('point')
@@ -30,9 +36,21 @@ def peoples(request):
     }
     return render(request, 'peoples/list.html', context)
 
+def people_info(request):
+    pass
+
 def cinemas(request):
     cinema_list = Cinema.objects.order_by('point')
     context = {
         'list': cinema_list
     }
     return render(request, 'cinemas/list.html', context)
+
+def cinema_info(request):
+    pass
+
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')

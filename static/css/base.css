@@ -1,8 +1,15 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: darkorange;
   }
-  
+  h2 a{
+    color: black;
+  }
+  h2 a:hover{
+    color: black;
+    text-decoration: none;
+  }
   .topnav {
     overflow: hidden;
     background-color:blue;

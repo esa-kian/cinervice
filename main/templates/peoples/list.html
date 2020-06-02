@@ -3,7 +3,7 @@
     {% if list %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for peoples in list %}
-                    <h3><a style="color: floralwhite;text-decoration:none;" href="/peoples">{{ peoples.full_name }}</a></h3>
+                    <h3><a style="color: floralwhite;text-decoration:none;" href="/people">{{ peoples.full_name }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ peoples.image }}" width="600px" />
