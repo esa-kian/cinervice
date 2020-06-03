@@ -1,16 +1,16 @@
 {% extends "base.html" %}
     {% block content %}
-        {% if list %}
+        {% if info %}
             <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
-                {% for movie_theater in list %}
+                {% for movie_theater in info %}
                 <h3><a style="color: floralwhite;text-decoration:none;" href="/movie_theaters/{{ movie_theater.id }}">{{ movie_theater.name }}</a></h3>
                 {% load static %}
-                <img src="../{{ movie_theater.image }}" width="600px" />
+                <img src="../../{{ movie_theater.image }}" width="600px" />
                 <p style="color: floralwhite;">{{ movie_theater.address }}</p>
                 <hr>
                 {% endfor %}
             </div>
         {% else %}
-            <p>No movie_theater are available.</p>
+            <p>No movie theater are available.</p>
         {% endif %}
     {% endblock %}

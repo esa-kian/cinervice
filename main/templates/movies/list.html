@@ -3,7 +3,7 @@
         {% if list %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for movies in list %}
-                    <h3><a style="color: floralwhite;text-decoration:none;" href="/movies">{{ movies.title }}</a></h3>
+                    <h3><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movies.id }}">{{ movies.title }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ movies.image }}" width="600px" />

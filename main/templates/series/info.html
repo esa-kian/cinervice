@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+    {% block content %}
+        {% if info %}
+            <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+                {% for seri in info %}
+                <h3><a style="color: floralwhite;text-decoration:none;" href="/tv_shows/{{ seri.id }}">{{ seri.title }}</a></h3>
+                {% load static %}
+                <img src="../../{{ seri.image }}" width="600px" />
+                <p style="color: floralwhite;">{{ seri.comment }}</p>
+                <hr>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No movie are available.</p>
+        {% endif %}
+    {% endblock %}

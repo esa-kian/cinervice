@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+    {% block content %}
+        {% if info %}
+            <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+                {% for movie in info %}
+                <h3><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movie.id }}">{{ movie.title }}</a></h3>
+                {% load static %}
+                <img src="../../{{ movie.image }}" width="600px" />
+                <p style="color: floralwhite;">{{ movie.comment }}</p>
+                <hr>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No movie are available.</p>
+        {% endif %}
+    {% endblock %}

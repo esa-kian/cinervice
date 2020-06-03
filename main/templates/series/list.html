@@ -3,7 +3,7 @@
     {% if list %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for series in list %}
-                    <h3><a style="color: floralwhite;text-decoration:none;" href="/series">{{ series.title }}</a></h3>
+                    <h3><a style="color: floralwhite;text-decoration:none;" href="/tv_shows/{{ series.id }}">{{ series.title }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ series.image }}" width="600px" />

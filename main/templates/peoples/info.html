@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+    {% block content %}
+        {% if info %}
+            <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+                {% for people in info %}
+                <h3><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ people.id }}">{{ people.full_name }}</a></h3>
+                {% load static %}
+                <img src="../../{{ people.image }}" width="600px" />
+                <p style="color: floralwhite;">{{ people.comment }}</p>
+                {% if role %}
+                        Movies: 
+                        {% for roles in role %}
+                            <p style="color: floralwhite;">{{ roles.movie.title }}</p>
+                        {% endfor %}
+                        TV Shows:
+                        {% for roles in role %}
+                            <p style="color: floralwhite;">{{ roles.serial.title }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No roles are available.</p>
+                    {% endif %}
+                <hr>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No movie are available.</p>
+        {% endif %}
+    {% endblock %}
