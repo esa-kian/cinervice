@@ -1,24 +1,23 @@
+<!DOCTYPE html>
 <html>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <head>
         <title>Cinervice</title>
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/base.css">
-        
  </head>
-    <body style="background-color: teal;">
+    <body>
         <div class="topnav">
-            <a class="active" href="/">Home</a>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Information
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
+            <a class="active" href="/">Home</a>  
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Information</a>
+                <div class="dropdown-content">
+                  <a href="/movies">Movies</a>
+                  <a href="/tv_shows">TV Shows</a>
+                  <a href="/people">Celebrities</a>
                 </div>
+                
             <a href="/movie_theaters">Movie Theathers</a>
             <a href="/news">News</a>
             <a href="/about">About</a>
