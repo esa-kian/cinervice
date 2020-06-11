@@ -48,6 +48,19 @@ def seri_info(request, seri_id):
         raise Http404("TV Show does not exist")
     return render(request, 'series/info.html', { 'info' : seri_info})
 
+def seri_rate(request, seri_id):
+    if request.method == "GET":
+        vote = int(request.GET.get('point'))
+        if(1<=vote<=10):
+            seri_info = Series.objects.get(pk=seri_id)
+            rate = seri_info.point
+            rate = ((rate * seri_info.count) + int(vote)) / (seri_info.count + 1)
+            return HttpResponse(Series.objects.filter(id=seri_id).update(point=rate, count=seri_info.count + 1))
+        else:
+            return HttpResponse('Your vote is out of range')
+    else: 
+        return HttpResponse('Invalid request')
+
 def peoples(request):
     people_list = People.objects.order_by('point')
     role_list = Role.objects.order_by('person')
@@ -69,6 +82,19 @@ def people_info(request, people_id):
         raise Http404("People does not exist")
     return render(request, 'peoples/info.html', context)
 
+def people_rate(request, people_id):
+    if request.method == "GET":
+        vote = int(request.GET.get('point'))
+        if(1<=vote<=10):
+            people_info = People.objects.get(pk=people_id)
+            rate = people_info.point
+            rate = ((rate * people_info.count) + int(vote)) / (people_info.count + 1)
+            return HttpResponse(People.objects.filter(id=people_id).update(point=rate, count=people_info.count + 1))
+        else:
+            return HttpResponse('Your vote is out of range')
+    else: 
+        return HttpResponse('Invalid request')
+
 def cinemas(request):
     cinema_list = Cinema.objects.order_by('point')
     context = {
@@ -82,6 +108,19 @@ def cinema_info(request, cinema_id):
     except Cinema.DoesNotExist:
         raise Http404("Movie Theater does not exist")
     return render(request, 'cinemas/info.html', {'info': cinema_info})
+
+def cinema_rate(request, cinema_id):
+    if request.method == "GET":
+        vote = int(request.GET.get('point'))
+        if(1<=vote<=10):
+            cinema_info = Cinema.objects.get(pk=cinema_id)
+            rate = cinema_info.point
+            rate = ((rate * cinema_info.count) + int(vote)) / (cinema_info.count + 1)
+            return HttpResponse(Cinema.objects.filter(id=cinema_id).update(point=rate, count=cinema_info.count + 1))
+        else:
+            return HttpResponse('Your vote is out of range')
+    else: 
+        return HttpResponse('Invalid request')
 
 def about(request):
     return render(request, 'about.html')
