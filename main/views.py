@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from .models import Movie, Series, People, Cinema, Role
-
 # Create your views here.
 
 def index(request):
@@ -19,7 +18,21 @@ def movie_info(request, movie_id):
         movie_info = Movie.objects.filter(pk=movie_id)
     except Movie.DoesNotExist:
         raise Http404("Movie does not exist")
-    return render(request, 'movies/info.html', { 'info' : movie_info})
+    return render(request, 'movies/info.html', { 'info' : movie_info })
+
+def movie_rate(request, movie_id):
+    if request.method == "GET":
+        vote = int(request.GET.get('point'))
+        if(1<=vote<=10):
+            movie_info = Movie.objects.get(pk=movie_id)
+            rate = movie_info.point
+            rate = ((rate * movie_info.count) + int(vote)) / (movie_info.count + 1)
+            return HttpResponse(Movie.objects.filter(id=movie_id).update(point=rate, count=movie_info.count + 1))
+        else:
+            return HttpResponse('Your vote is out of range')
+    else: 
+        return HttpResponse('Invalid request')
+
 
 def series(request):
     series_list = Series.objects.order_by('point')
