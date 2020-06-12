@@ -6,6 +6,18 @@
                 <h3><a style="color: floralwhite;text-decoration:none;" href="/tv_shows/{{ seri.id }}">{{ seri.title }}</a></h3>
                 {% load static %}
                 <img src="../../{{ seri.image }}" width="600px" />
+                <form action="/tv_shows/{{ seri.id }}/vote" method="GET">
+                    <input type="submit" value="1" name="point"/>
+                    <input type="submit" value="2" name="point"/>
+                    <input type="submit" value="3" name="point"/>
+                    <input type="submit" value="4" name="point"/>
+                    <input type="submit" value="5" name="point"/>
+                    <input type="submit" value="6" name="point"/>
+                    <input type="submit" value="7" name="point"/>
+                    <input type="submit" value="8" name="point"/>
+                    <input type="submit" value="9" name="point"/>
+                    <input type="submit" value="10" name="point"/>
+                </form>
                 <p style="color: floralwhite;">{{ seri.comment }}</p>
                 <hr>
                 {% endfor %}

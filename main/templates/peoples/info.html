@@ -3,9 +3,21 @@
         {% if info %}
             <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for people in info %}
-                <h3><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ people.id }}">{{ people.full_name }}</a></h3>
+                <h3><a style="color: floralwhite;text-decoration:none;" href="/people/{{ people.id }}">{{ people.full_name }}</a></h3>
                 {% load static %}
                 <img src="../../{{ people.image }}" width="600px" />
+                <form action="/people/{{ people.id }}/vote" method="GET">
+                    <input type="submit" value="1" name="point"/>
+                    <input type="submit" value="2" name="point"/>
+                    <input type="submit" value="3" name="point"/>
+                    <input type="submit" value="4" name="point"/>
+                    <input type="submit" value="5" name="point"/>
+                    <input type="submit" value="6" name="point"/>
+                    <input type="submit" value="7" name="point"/>
+                    <input type="submit" value="8" name="point"/>
+                    <input type="submit" value="9" name="point"/>
+                    <input type="submit" value="10" name="point"/>
+                </form>
                 <p style="color: floralwhite;">{{ people.comment }}</p>
                 {% if role %}
                         Movies: 
