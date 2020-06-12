@@ -7,6 +7,18 @@
                 {% load static %}
                 <img src="../../{{ movie.image }}" width="600px" />
                 <p style="color: floralwhite;">{{ movie.comment }}</p>
+                <form action="/movies/{{ movie.id }}/vote" method="GET">
+                    <input type="submit" value="1" name="point"/>
+                    <input type="submit" value="2" name="point"/>
+                    <input type="submit" value="3" name="point"/>
+                    <input type="submit" value="4" name="point"/>
+                    <input type="submit" value="5" name="point"/>
+                    <input type="submit" value="6" name="point"/>
+                    <input type="submit" value="7" name="point"/>
+                    <input type="submit" value="8" name="point"/>
+                    <input type="submit" value="9" name="point"/>
+                    <input type="submit" value="10" name="point"/>
+                </form>
                 <p>Rate: {{ movie.point }}<br> Count: {{ movie.count }}</p>
                 <hr>
                 {% endfor %}
