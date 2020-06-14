@@ -4,7 +4,11 @@ from .models import Movie, Series, People, Cinema, Role
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    cinema_in_slider = Cinema.objects.order_by('point')
+    context = {
+        'cinema_in_slider': cinema_in_slider
+    }
+    return render(request, 'index.html', context)
 
 # Start of Movie Part Methods
 

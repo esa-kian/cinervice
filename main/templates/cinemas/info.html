@@ -20,6 +20,11 @@
                 </form>
                 <p style="color: floralwhite;">{{ movie_theater.address }}</p>
                 <hr>
+                <p style="color: floralwhite;">Movies: 
+                    {% for movie in movie_theater.movie.all %}
+                        {{ movie.title }}
+                    {% endfor %}
+                </p>
                 {% endfor %}
             </div>
         {% else %}
