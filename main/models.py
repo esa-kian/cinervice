@@ -82,3 +82,11 @@ class Cinema(models.Model):
 
     def __str__(self):
         return self.name
+
+class Contact_Form(models.Model):
+    first_name = models.CharField(max_length=300)
+    last_name = models.CharField(max_length=300)
+    country = models.CharField(max_length=300)
+    subject = models.TextField(null=False, blank=False)
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name + ': ' + self.subject

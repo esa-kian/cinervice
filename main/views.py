@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from .models import Movie, Series, People, Cinema, Role
-# Create your views here.
+from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
+from .models import Movie, Series, People, Cinema, Role, Contact_Form
+
 
 def index(request):
-    cinema_in_slider = Cinema.objects.order_by('point')
+    cinema_in_slider = Cinema.objects.order_by('point')[:3]
     context = {
         'cinema_in_slider': cinema_in_slider
     }
@@ -150,4 +150,15 @@ def about(request):
 
 # Contact Part Method
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == "GET":
+        return render(request, 'contact.html')
+    elif request.method == "POST":
+        first_name = request.POST.get('firstname')
+        last_name = request.POST.get('lastname')
+        country = request.POST.get('country')
+        subject = request.POST.get('subject')
+        contact_form = Contact_Form(first_name = first_name, last_name = last_name, country = country, subject = subject)
+        contact_form.save()
+        return JsonResponse({'situation':'Your form has been received!'})
+    else:
+        return JsonResponse({'situation':'Invalid request!'})
