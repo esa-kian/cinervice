@@ -1,5 +1,57 @@
 {% extends "base.html" %}
     {% block content %}
+    <html>
+        <head>
+            <style>
+            .txt-center {
+                text-align: center;
+                font-size: large;
+            }
+            .hide {
+                display: none;
+            }
+            
+            .clear {
+                float: none;
+                clear: both;
+            }
+            
+            .rating {
+                width: 180px;
+                unicode-bidi: bidi-override;
+                direction: rtl;
+                text-align: center;
+                position: relative;
+            }
+            
+            .rating > label {
+                float: right;
+                display: inline;
+                padding: 0;
+                margin: 0;
+                position: relative;
+                width: 1em;
+                cursor: pointer;
+                color: #000;
+            }
+            
+            .rating > label:hover,
+            .rating > label:hover ~ label,
+            .rating > input.radio-btn:checked ~ label {
+                color: transparent;
+            }
+            
+            .rating > label:hover:before,
+            .rating > label:hover ~ label:before,
+            .rating > input.radio-btn:checked ~ label:before,
+            .rating > input.radio-btn:checked ~ label:before {
+                content: "\2605";
+                position: absolute;
+                left: 0;
+                color: #FFD700;
+            }
+        </style>
+        </head>
         {% if info %}
             <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for people in info %}
@@ -18,6 +70,33 @@
                     <input type="submit" value="9" name="point"/>
                     <input type="submit" value="10" name="point"/>
                 </form>
+                <div class="txt-center">
+                    <form>
+                        <div class="rating">
+                            <input id="star10" name="star" type="radio" value="10" class="radio-btn hide" />
+                            <label for="star10">☆</label>
+                            <input id="star9" name="star" type="radio" value="9" class="radio-btn hide" />
+                            <label for="star9">☆</label>
+                            <input id="star8" name="star" type="radio" value="8" class="radio-btn hide" />
+                            <label for="star8">☆</label>
+                            <input id="star7" name="star" type="radio" value="7" class="radio-btn hide" />
+                            <label for="star7">☆</label>
+                            <input id="star6" name="star" type="radio" value="6" class="radio-btn hide" />
+                            <label for="star6">☆</label>
+                            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                            <label for="star5">☆</label>
+                            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                            <label for="star4">☆</label>
+                            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                            <label for="star3">☆</label>
+                            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                            <label for="star2">☆</label>
+                            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                            <label for="star1">☆</label>
+                            <div class="clear"></div>
+                        </div>
+                    </form>
+                </div>
                 <p style="color: floralwhite;">{{ people.comment }}</p>
                 {% if role %}
                         Movies: 
@@ -38,3 +117,4 @@
             <p>No movie are available.</p>
         {% endif %}
     {% endblock %}
+    </html>
