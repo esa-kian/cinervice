@@ -47,6 +47,8 @@
                     </form>
                 </div>
                 <p style="color: floralwhite;">{{ people.comment }}</p>
+                <p>Rate: {{ people.point }}<br> Count: {{ people.count }}</p>
+                <hr>
                 {% if role %}
                         Movies: 
                         {% for roles in role %}

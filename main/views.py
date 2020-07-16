@@ -31,8 +31,9 @@ def movie_rate(request, movie_id):
         vote = int(request.GET.get('point'))
         if(1<=vote<=10):
             movie_info = Movie.objects.get(pk=movie_id)
-            rate = movie_info.point
-            rate = ((rate * movie_info.count) + int(vote)) / (movie_info.count + 1)
+            rate = float(movie_info.point)
+            vote_count = float(movie_info.count)
+            rate = round(((rate * vote_count) + vote) / (movie_info.count + 1),2)
             Movie.objects.filter(id=movie_id).update(point=rate, count=movie_info.count + 1)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
@@ -63,8 +64,9 @@ def seri_rate(request, seri_id):
         vote = int(request.GET.get('point'))
         if(1<=vote<=10):
             seri_info = Series.objects.get(pk=seri_id)
-            rate = seri_info.point
-            rate = ((rate * seri_info.count) + int(vote)) / (seri_info.count + 1)
+            rate = float(seri_info.point)
+            vote_count = float(seri_info.count)
+            rate = round(((rate * vote_count) + vote) / (seri_info.count + 1), 2)
             Series.objects.filter(id=seri_id).update(point=rate, count=seri_info.count + 1)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
@@ -102,8 +104,9 @@ def people_rate(request, people_id):
         vote = int(request.GET.get('point'))
         if(1<=vote<=10):
             people_info = People.objects.get(pk=people_id)
-            rate = people_info.point
-            rate = ((rate * people_info.count) + int(vote)) / (people_info.count + 1)
+            rate = float(people_info.point)
+            vote_count = float(people_info.count)
+            rate = round(((rate * vote_count) + vote) / (people_info.count + 1), 2)
             People.objects.filter(id=people_id).update(point=rate, count=people_info.count + 1)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
@@ -134,8 +137,9 @@ def cinema_rate(request, cinema_id):
         vote = int(request.GET.get('point'))
         if(1<=vote<=10):
             cinema_info = Cinema.objects.get(pk=cinema_id)
-            rate = cinema_info.point
-            rate = ((rate * cinema_info.count) + int(vote)) / (cinema_info.count + 1)
+            rate = float(cinema_info.point)
+            vote_count = float(cinema_info.count)
+            rate = round(((rate * vote_count) + vote) / (cinema_info.count + 1), 2)
             Cinema.objects.filter(id=cinema_id).update(point=rate, count=cinema_info.count + 1)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:

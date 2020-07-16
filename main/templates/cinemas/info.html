@@ -48,6 +48,8 @@
                 </div>
                 <br>
                 <p style="color: floralwhite;">{{ movie_theater.address }}</p>
+                <p>Rate: {{ movie_theater.point }}<br> Count: {{ movie_theater.count }}</p>
+                <hr>
                 <hr>
                 <p style="color: floralwhite;">Movies: 
                     {% for movie in movie_theater.movie.all %}

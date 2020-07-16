@@ -9,7 +9,7 @@ class People(models.Model):
     birth_date = models.DateTimeField()
     birth_place = models.CharField(max_length=300,null=True)
     comment = models.TextField(null=True)
-    point = models.IntegerField(default=0)
+    point = models.FloatField(default=0)
     count = models.IntegerField(default=0)
 
     def __str__(self):
@@ -22,7 +22,7 @@ class Movie(models.Model):
     publish_year = models.DateTimeField()
     comment = models.TextField(null=True)
     genre = models.CharField(max_length=100)
-    point = models.IntegerField(default=0)
+    point = models.FloatField(default=0)
     count = models.IntegerField(default=0)
 
     def __str__(self):
@@ -35,7 +35,7 @@ class Series(models.Model):
     end_year = models.DateTimeField()
     comment = models.TextField(null=True)
     genre = models.CharField(max_length=100)
-    point = models.IntegerField(default=0)
+    point = models.FloatField(default=0)
     count = models.IntegerField(default=0)
 
     def __str__(self):
@@ -76,7 +76,7 @@ class Cinema(models.Model):
     name = models.CharField(max_length=300)
     establish_date = models.DateTimeField()
     address = models.TextField(null = True)
-    point = models.IntegerField(default=0)
+    point = models.FloatField(default=0)
     count = models.IntegerField(default=0)
     movie = models.ManyToManyField(Movie)
 
