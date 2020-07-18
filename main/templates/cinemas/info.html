@@ -48,8 +48,11 @@
                 </div>
                 <br>
                 <p style="color: floralwhite;">{{ movie_theater.address }}</p>
-                <p>Rate: {{ movie_theater.point }}<br> Count: {{ movie_theater.count }}</p>
-                <hr>
+                {% if rate %}
+                    <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
+                {% else %}
+                    <p>Nobody voted this.</p>
+                {% endif %}
                 <hr>
                 <p style="color: floralwhite;">Movies: 
                     {% for movie in movie_theater.movie.all %}

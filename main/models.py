@@ -1,5 +1,7 @@
 from django.db import models
 from django import forms
+from django.contrib import auth
+from django.conf import settings
 # from django.contrib.gis.geoip2 import GeoIP2
 # Create your models here.
 
@@ -9,12 +11,9 @@ class People(models.Model):
     birth_date = models.DateTimeField()
     birth_place = models.CharField(max_length=300,null=True)
     comment = models.TextField(null=True)
-    point = models.FloatField(default=0)
-    count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.full_name
-
 
 class Movie(models.Model):
     image = models.ImageField(upload_to='static/images/movies',null=True)
@@ -22,8 +21,6 @@ class Movie(models.Model):
     publish_year = models.DateTimeField()
     comment = models.TextField(null=True)
     genre = models.CharField(max_length=100)
-    point = models.FloatField(default=0)
-    count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -35,11 +32,39 @@ class Series(models.Model):
     end_year = models.DateTimeField()
     comment = models.TextField(null=True)
     genre = models.CharField(max_length=100)
-    point = models.FloatField(default=0)
-    count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
+
+class Cinema(models.Model):
+    image = models.ImageField(upload_to='static/images/cinemas', null=True, blank=True)
+    name = models.CharField(max_length=300)
+    establish_date = models.DateTimeField()
+    address = models.TextField(null = True)
+    movie = models.ManyToManyField(Movie)
+
+    def __str__(self):
+        return self.name
+class Movies_Vote(models.Model):
+    movie = models.ForeignKey(Movie, null=False, on_delete = models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
+    vote = models.IntegerField(null=False)
+
+
+class Series_Vote(models.Model):
+    serial = models.ForeignKey(Series, null=False, on_delete = models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
+    vote = models.IntegerField(null=False)
+
+class People_Vote(models.Model):
+    people = models.ForeignKey(People, null=False, on_delete = models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
+    vote = models.IntegerField(null=False)
+
+class Cinema_Vote(models.Model):
+    cinema = models.ForeignKey(Cinema, null=False, on_delete = models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
+    vote = models.IntegerField(null=False)
 
 class Role(models.Model):
     TYPE_OF_PRODUCT = [
@@ -71,22 +96,11 @@ class Role(models.Model):
         elif (self.serial is None):
             return self.person.full_name + ': [Movie]: ' + self.movie.title
 
-class Cinema(models.Model):
-    image = models.ImageField(upload_to='static/images/cinemas', null=True, blank=True)
-    name = models.CharField(max_length=300)
-    establish_date = models.DateTimeField()
-    address = models.TextField(null = True)
-    point = models.FloatField(default=0)
-    count = models.IntegerField(default=0)
-    movie = models.ManyToManyField(Movie)
-
-    def __str__(self):
-        return self.name
 
 class Contact_Form(models.Model):
     first_name = models.CharField(max_length=300)
     last_name = models.CharField(max_length=300)
-    country = models.CharField(max_length=300)
+    email = models.EmailField(max_length=300, null=False)
     subject = models.TextField(null=False, blank=False)
     def __str__(self):
         return self.first_name + ' ' + self.last_name + ': ' + self.subject

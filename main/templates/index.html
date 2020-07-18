@@ -1,6 +1,5 @@
 {% extends "base.html" %}
     {% block content %}
-    <h1>Landing page is ready to development</h1>
              <!-- Slideshow container -->
 <div class="slideshow-container">
   {% if cinema_in_slider %}
@@ -34,4 +33,19 @@
     <span class="dot" onclick="currentSlide(3)"></span>
   </div>
   <br>
+
+      {% if news_in_index %}
+          <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+          {% for news in news_in_index %}
+              <h3><a style="color: floralwhite;text-decoration:none;" href="/news">{{ news.title }}</a></h3>
+              {% load static %}
+
+              <img src="../{{ news.image }}" width="600px" />
+              <p style="color: floralwhite;">{{ news.body }}</p>
+              <hr>
+          {% endfor %}
+          </div>
+      {% else %}
+          <p>No news are available.</p>
+      {% endif %}
     {% endblock %}

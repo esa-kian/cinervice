@@ -47,7 +47,11 @@
                         </div>
                     </form>
                 </div>
-                <p>Rate: {{ movie.point }}<br> Count: {{ movie.count }}</p>
+                {% if rate %}
+                    <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
+                {% else %}
+                    <p>Nobody voted this.</p>
+                {% endif %}
                 <hr>
                 {% endfor %}
             </div>

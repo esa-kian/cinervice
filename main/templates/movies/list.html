@@ -1,8 +1,8 @@
 {% extends "base.html" %}
     {% block content %}
-        {% if list %}
+        {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
-                {% for movies in list %}
+                {% for movies in page_obj %}
                     <h3><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movies.id }}">{{ movies.title }}</a></h3>
                     {% load static %}
 
@@ -11,6 +11,23 @@
                     
                     <hr>
                 {% endfor %}
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
                 </div>
             {% else %}
                 <p>No movies are available.</p>

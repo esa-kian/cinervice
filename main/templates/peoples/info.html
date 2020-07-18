@@ -47,7 +47,11 @@
                     </form>
                 </div>
                 <p style="color: floralwhite;">{{ people.comment }}</p>
-                <p>Rate: {{ people.point }}<br> Count: {{ people.count }}</p>
+                {% if rate %}
+                    <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
+                {% else %}
+                    <p>Nobody voted this.</p>
+                {% endif %}
                 <hr>
                 {% if role %}
                         Movies: 

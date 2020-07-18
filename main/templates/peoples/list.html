@@ -1,27 +1,32 @@
 {% extends "base.html" %}
     {% block content %}
-    {% if list %}
+    {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
-                {% for peoples in list %}
+                {% for peoples in page_obj %}
                     <h3><a style="color: floralwhite;text-decoration:none;" href="/people/{{ peoples.id}}">{{ peoples.full_name }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ peoples.image }}" width="600px" />
                     <p style="color: floralwhite;">{{ peoples.comment }}</p>
-                    {% if role %}
-                        Movies: 
-                        {% for roles in role %}
-                            <p style="color: floralwhite;">{{ roles.movie.title }}</p>
-                        {% endfor %}
-                        TV Shows:
-                        {% for roles in role %}
-                            <p style="color: floralwhite;">{{ roles.serial.title }}</p>
-                        {% endfor %}
-                    {% else %}
-                        <p>No roles are available.</p>
-                    {% endif %}
                     <hr>
                 {% endfor %}
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
                 </div>
             {% else %}
                 <p>No peoples are available.</p>

@@ -48,7 +48,11 @@
                 </div>
                 <p style="color: floralwhite;">{{ seri.comment }}</p>
                 <hr>
-                <p>Rate: {{ seri.point }}<br> Count: {{ seri.count }}</p>
+                {% if rate %}
+                    <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
+                {% else %}
+                    <p>Nobody voted this.</p>
+                {% endif %}
                 <hr>
                 {% endfor %}
             </div>
