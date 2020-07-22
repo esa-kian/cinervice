@@ -3,11 +3,11 @@
             {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for news in page_obj %}
-                    <h3><a style="color: floralwhite;text-decoration:none;" href="/news">{{ news.title }}</a></h3>
+                    <h3><a style="color: black;text-decoration:none;" href="/news">{{ news.title }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ news.image }}" width="600px" />
-                    <p style="color: floralwhite;">{{ news.body }}</p>
+                    <p style="color: black;">{{ news.body }}</p>
                     <hr>
                 {% endfor %}
                 </div>

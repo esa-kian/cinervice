@@ -3,11 +3,11 @@
         {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for movies in page_obj %}
-                    <h3><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movies.id }}">{{ movies.title }}</a></h3>
+                    <h3><a style="color: black;text-decoration:none;" href="/movies/{{ movies.id }}">{{ movies.title }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ movies.image }}" width="600px" />
-                    <p style="color: floralwhite;">{{ movies.comment }}</p>
+                    <p style="color: black;">{{ movies.comment }}</p>
                     
                     <hr>
                 {% endfor %}

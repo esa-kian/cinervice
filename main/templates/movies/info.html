@@ -4,10 +4,10 @@
         {% if info %}
             <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for movie in info %}
-                <h3><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movie.id }}">{{ movie.title }}</a></h3>
+                <h3><a style="color: black;text-decoration:none;" href="/movies/{{ movie.id }}">{{ movie.title }}</a></h3>
                 {% load static %}
                 <img src="../../{{ movie.image }}" width="600px" />
-                <p style="color: floralwhite;">{{ movie.comment }}</p>
+                <p style="color: black;">{{ movie.comment }}</p>
                 <div class="txt-center">
                     <form action="/movies/{{ movie.id }}/vote" method="GET">
                         <div class="rating">

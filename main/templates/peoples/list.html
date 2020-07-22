@@ -3,11 +3,11 @@
     {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for peoples in page_obj %}
-                    <h3><a style="color: floralwhite;text-decoration:none;" href="/people/{{ peoples.id}}">{{ peoples.full_name }}</a></h3>
+                    <h3><a style="color: black;text-decoration:none;" href="/people/{{ peoples.id}}">{{ peoples.full_name }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ peoples.image }}" width="600px" />
-                    <p style="color: floralwhite;">{{ peoples.comment }}</p>
+                    <p style="color: black;">{{ peoples.comment }}</p>
                     <hr>
                 {% endfor %}
                 </div>

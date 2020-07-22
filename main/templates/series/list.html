@@ -3,11 +3,11 @@
     {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for series in page_obj %}
-                    <h3><a style="color: floralwhite;text-decoration:none;" href="/tv_shows/{{ series.id }}">{{ series.title }}</a></h3>
+                    <h3><a style="color: black;text-decoration:none;" href="/tv_shows/{{ series.id }}">{{ series.title }}</a></h3>
                     {% load static %}
 
                     <img src="../{{ series.image }}" width="600px" />
-                    <p style="color: floralwhite;">{{ series.comment }}</p>
+                    <p style="color: black;">{{ series.comment }}</p>
                     <hr>
                 {% endfor %}
                 </div>

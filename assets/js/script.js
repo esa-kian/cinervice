@@ -3,6 +3,6 @@ $(document).ready(function() {
   $(".dropdown-toggle").dropdown();
 });
 // Active nav
-$( document ).on( 'click', '.nav-list li', function ( e ) {
-    $( this ).addClass( 'active' ).siblings().removeClass( 'active' );
-} );
+$(document).ready(function() {
+  $('a[href$="' + location.pathname + '"]').addClass('active');
+});
