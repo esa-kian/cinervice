@@ -79,16 +79,8 @@ class Role(models.Model):
     person = models.ForeignKey(People, on_delete = models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete = models.CASCADE, null = True, blank = True)
     serial = models.ForeignKey(Series, on_delete = models.CASCADE, null = True, blank = True)
-    type_of_product = forms.MultipleChoiceField(
-        required=False,
-        widget=forms.CheckboxSelectMultiple,
-        choices=TYPE_OF_PRODUCT,
-    )
-    type_of_role = forms.MultipleChoiceField(
-        required=False,
-        widget=forms.CheckboxSelectMultiple,
-        choices=TYPE_OF_ROLE,
-    )
+    type_of_product = models.CharField(max_length=1, null = True, choices=TYPE_OF_PRODUCT)
+    type_of_role = models.CharField(max_length=1, null = True, choices=TYPE_OF_ROLE)
     
     def __str__(self):
         if(self.movie is None):

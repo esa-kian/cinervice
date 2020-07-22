@@ -7,40 +7,29 @@
                 <h3><a style="color: floralwhite;text-decoration:none;" href="/people/{{ people.id }}">{{ people.full_name }}</a></h3>
                 {% load static %}
                 <img src="../../{{ people.image }}" width="600px" />
-                <form action="/people/{{ people.id }}/vote" method="GET">
-                    <input type="submit" value="1" name="point"/>
-                    <input type="submit" value="2" name="point"/>
-                    <input type="submit" value="3" name="point"/>
-                    <input type="submit" value="4" name="point"/>
-                    <input type="submit" value="5" name="point"/>
-                    <input type="submit" value="6" name="point"/>
-                    <input type="submit" value="7" name="point"/>
-                    <input type="submit" value="8" name="point"/>
-                    <input type="submit" value="9" name="point"/>
-                    <input type="submit" value="10" name="point"/>
-                </form>
+                
                 <div class="txt-center">
-                    <form>
+                    <form action="/people/{{ people.id }}/vote" method="GET">
                         <div class="rating">
-                            <input id="star10" name="star" type="radio" value="10" class="radio-btn hide" />
+                            <input id="star10" name="point" type="submit" value="10" class="radio-btn hide" />
                             <label for="star10">☆</label>
-                            <input id="star9" name="star" type="radio" value="9" class="radio-btn hide" />
+                            <input id="star9" name="point" type="submit" value="9" class="radio-btn hide" />
                             <label for="star9">☆</label>
-                            <input id="star8" name="star" type="radio" value="8" class="radio-btn hide" />
+                            <input id="star8" name="point" type="submit" value="8" class="radio-btn hide" />
                             <label for="star8">☆</label>
-                            <input id="star7" name="star" type="radio" value="7" class="radio-btn hide" />
+                            <input id="star7" name="point" type="submit" value="7" class="radio-btn hide" />
                             <label for="star7">☆</label>
-                            <input id="star6" name="star" type="radio" value="6" class="radio-btn hide" />
+                            <input id="star6" name="point" type="submit" value="6" class="radio-btn hide" />
                             <label for="star6">☆</label>
-                            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                            <input id="star5" name="point" type="submit" value="5" class="radio-btn hide" />
                             <label for="star5">☆</label>
-                            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                            <input id="star4" name="point" type="submit" value="4" class="radio-btn hide" />
                             <label for="star4">☆</label>
-                            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                            <input id="star3" name="point" type="submit" value="3" class="radio-btn hide" />
                             <label for="star3">☆</label>
-                            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                            <input id="star2" name="point" type="submit" value="2" class="radio-btn hide" />
                             <label for="star2">☆</label>
-                            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                            <input id="star1" name="point" type="submit" value="1" class="radio-btn hide" />
                             <label for="star1">☆</label>
                             <div class="clear"></div>
                         </div>
