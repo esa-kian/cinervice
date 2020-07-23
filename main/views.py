@@ -6,7 +6,18 @@ from news.models import New
 from django.db.models import Avg
 
 def index(request):
-    cinema_in_slider = Cinema.objects.all()[:3]
+    if(request.user.is_authenticated):
+        rate_avg_movie = Movies_Vote.objects.filter(user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+        rate_avg_serial = Series_Vote.objects.filter(user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+        rate_avg_people = People_Vote.objects.filter(user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+        rate_avg_cinema = Cinema_Vote.objects.filter(user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+        avg_vote = (rate_avg_movie+rate_avg_serial+rate_avg_people+rate_avg_cinema)/4
+        fav_movie = Movies_Vote.objects.filter(vote__gt = avg_vote, user_id=request.user.id)
+        for i in fav_movie: 
+            cinema_in_slider = Cinema.objects.filter(movie=i.movie_id)   
+            print(cinema_in_slider)
+    else:    
+        cinema_in_slider = Cinema.objects.all()[:3]
     news_in_index = New.objects.all()[:5]
     context = {
         'cinema_in_slider': cinema_in_slider,
