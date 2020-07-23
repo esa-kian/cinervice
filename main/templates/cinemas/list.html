@@ -1,5 +1,11 @@
 {% extends "base.html" %}
+    {% block title %}
+    {% if page_obj %}
+        Movie Theaters
+    {% endif %}
+    {% endblock %}
     {% block content %}
+    <h1>Movie Theaters:</h1> 
         {% if page_obj %}
             <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for movie_theater in page_obj %}
@@ -16,6 +22,10 @@
                         <a href="?page=1">&laquo; first</a>
                         <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                     {% endif %}
+                    {{ page_range }}
+                    {% for page in page_range %}
+                        <a href="?page={{ page }}">{{ page }}</a>
+                    {% endfor %}
             
                     <span class="current">
                         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.

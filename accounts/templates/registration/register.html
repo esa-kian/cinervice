@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 {% load static %}
+    {% block title %}
+    Register
+    {% endblock %}
     {% block content %}
+        <h1>Register:</h1> 
         <form method="POST" action="{% url 'accounts:register' %}" class="form">
             {% csrf_token %}
             {% bootstrap_form form %}

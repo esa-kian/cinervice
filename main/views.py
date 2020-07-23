@@ -34,22 +34,25 @@ def movie_info(request, movie_id):
         raise Http404("Movie does not exist")
     return render(request, 'movies/info.html', { 'info' : movie_info, 'count': count, 'rate': rate })
 
-def movie_rate(request, movie_id):
-    if request.method == "GET":
+def movie_rate(request):
+    if request.method == "POST":
         if(request.user.is_authenticated):
-            vote = int(request.GET.get('point'))
+            vote = int(request.POST.get('point'))
             try:
-                is_voted = Movies_Vote.objects.get(movie_id=movie_id, user_id=request.user.id)
+                is_voted = Movies_Vote.objects.get(movie_id=request.POST.get('movie-id'), user_id=request.user.id)
                 if(is_voted is not None):
-                    Movies_Vote.objects.filter(movie_id=movie_id, user_id= request.user.id).update(vote=vote)
-                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                    if(1>vote or vote>10):
+                        return HttpResponse('Your vote is out of range')
+                    else:
+                        Movies_Vote.objects.filter(movie_id=request.POST.get('movie-id'), user_id= request.user.id).update(vote=vote)
+                        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             except:
-                if(1<=vote<=10):
-                    vote_object = Movies_Vote(vote=vote, movie_id=movie_id , user_id= request.user.id)
+                if(1>vote or vote>10):
+                    return HttpResponse('Your vote is out of range')
+                else:
+                    vote_object = Movies_Vote(vote=vote, movie_id=request.POST.get('movie-id') , user_id= request.user.id)
                     vote_object.save()
                     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-                else:
-                    return HttpResponse('Your vote is out of range')
         else:
             return HttpResponse('Please Login!')
     else: 
@@ -76,23 +79,25 @@ def seri_info(request, seri_id):
         raise Http404("TV Show does not exist")
     return render(request, 'series/info.html', { 'info' : seri_info, 'count': count, 'rate': rate })
 
-def seri_rate(request, seri_id):
-    if request.method == "GET":
+def seri_rate(request):
+    if request.method == "POST":
         if(request.user.is_authenticated):
-            vote = int(request.GET.get('point'))
+            vote = int(request.POST.get('point'))
             try:
-                is_voted = Series_Vote.objects.get(serial_id=seri_id, user_id=request.user.id)
+                is_voted = Series_Vote.objects.get(serial_id=request.POST.get('serial-id'), user_id=request.user.id)
                 if(is_voted is not None):
-                    Series_Vote.objects.filter(serial_id=seri_id, user_id= request.user.id).update(vote=vote)
-                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                    if(1>vote or vote>10):
+                        return HttpResponse('Your vote is out of range')
+                    else:
+                        Series_Vote.objects.filter(serial_id=request.POST.get('serial-id'), user_id= request.user.id).update(vote=vote)
+                        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             except:
-                if(1<=vote<=10):
-                    vote_object = Series_Vote(vote=vote, serial_id=seri_id , user_id= request.user.id)
-                    vote_object.save()
-
-                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-                else:
+                if(1>vote or vote>10):
                     return HttpResponse('Your vote is out of range')
+                else:
+                    vote_object = Series_Vote(vote=vote, serial_id=request.POST.get('serial-id') , user_id= request.user.id)
+                    vote_object.save()
+                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             return HttpResponse('Please Login!')
     else: 
@@ -130,23 +135,26 @@ def people_info(request, people_id):
         raise Http404("People does not exist")
     return render(request, 'peoples/info.html', context)
 
-def people_rate(request, people_id):
-    if request.method == "GET":
+def people_rate(request):
+    if request.method == "POST":
         if(request.user.is_authenticated):
-            vote = int(request.GET.get('point'))
+            vote = int(request.POST.get('point'))
             try:
-                is_voted = People_Vote.objects.get(people_id=people_id, user_id=request.user.id)
+                is_voted = People_Vote.objects.get(people_id=request.POST.get('people-id'), user_id=request.user.id)
                 if(is_voted is not None):
-                    People_Vote.objects.filter(people_id=people_id, user_id= request.user.id).update(vote=vote)
-                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                    if(1>vote or vote>10):
+                        return HttpResponse('Your vote is out of range')
+                    else:
+                        People_Vote.objects.filter(people_id=request.POST.get('people-id'), user_id= request.user.id).update(vote=vote)
+                        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                            
             except:
-                if(1<=vote<=10):
-                    vote_object = People_Vote(vote=vote, people_id=people_id , user_id= request.user.id)
-                    vote_object.save()
-
-                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-                else:
+                if(1>vote or vote>10):
                     return HttpResponse('Your vote is out of range')
+                else:
+                    vote_object = People_Vote(vote=vote, people_id=request.POST.get('people-id') , user_id= request.user.id)
+                    vote_object.save()
+                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             return HttpResponse('Please Login!')
     else: 
@@ -158,7 +166,7 @@ def people_rate(request, people_id):
 
 def cinemas(request):
     cinema_list = Cinema.objects.all()
-    paginator = Paginator(cinema_list, 2)
+    paginator = Paginator(cinema_list, 1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -177,23 +185,25 @@ def cinema_info(request, cinema_id):
         raise Http404("Movie Theater does not exist")
     return render(request, 'cinemas/info.html', {'info': cinema_info, 'count': count, 'rate': rate })
 
-def cinema_rate(request, cinema_id):
-    if request.method == "GET":
+def cinema_rate(request):
+    if request.method == "POST":
         if(request.user.is_authenticated):
-            vote = int(request.GET.get('point'))
+            vote = int(request.POST.get('point'))
             try:
-                is_voted = Cinema_Vote.objects.get(cinema_id=cinema_id, user_id=request.user.id)
+                is_voted = Cinema_Vote.objects.get(cinema_id=request.POST.get('cinema-id'), user_id=request.user.id)
                 if(is_voted is not None):
-                    Cinema_Vote.objects.filter(cinema_id=cinema_id, user_id= request.user.id).update(vote=vote)
-                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                    if(1>vote or vote>10):
+                        return HttpResponse('Your vote is out of range')
+                    else:
+                        Cinema_Vote.objects.filter(cinema_id=request.POST.get('cinema-id'), user_id= request.user.id).update(vote=vote)
+                        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             except:
-                if(1<=vote<=10):
-                    vote_object = Cinema_Vote(vote=vote, cinema_id=cinema_id , user_id= request.user.id)
-                    vote_object.save()
-
-                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-                else:
+                if(1>vote or vote>10):
                     return HttpResponse('Your vote is out of range')
+                else:
+                    vote_object = Cinema_Vote(vote=vote, cinema_id=request.POST.get('cinema-id') , user_id= request.user.id)
+                    vote_object.save()
+                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             return HttpResponse('Please Login!')
     else: 

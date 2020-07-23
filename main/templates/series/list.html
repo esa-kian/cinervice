@@ -1,5 +1,11 @@
 {% extends "base.html" %}
+    {% block title %}
+        {% if page_obj %}
+            TV Shows
+        {% endif %}
+    {% endblock %}
     {% block content %}
+    <h1>TV Shows:</h1> 
     {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for series in page_obj %}

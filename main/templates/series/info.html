@@ -1,6 +1,15 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
+    {% block title %}
+        {% if info %}
+            {% for seri in info %}
+                {{ seri.title }}
+            {% endfor %}
+        {% else %}
+            Not found
+        {% endif %}
+    {% endblock %}
     {% block content %}
-    
         {% if info %}
             <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for seri in info %}
@@ -8,7 +17,9 @@
                 {% load static %}
                 <img src="../../{{ seri.image }}" width="600px" />
                 <div class="txt-center">
-                    <form action="/tv_shows/{{ seri.id }}/vote" method="GET">
+                    <form action="{% url 'main:seri_rate' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ seri.id }}" name="serial-id"/>
                         <div class="rating">
                             <input id="star10" name="point" type="submit" value="10" class="radio-btn hide" />
                             <label for="star10">☆</label>

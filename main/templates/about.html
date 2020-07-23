@@ -1,35 +1,39 @@
 {% extends "base.html" %}
+    {% block title %}
+    About
+    {% endblock %}
     {% block content %}
-<div class="card-deck">
- <div class="card">
-  <img class="card-img-top" src="/static/images/about/ehsan.jpg" alt="Ehsan" style="width:100%; border-radius: 50%;">
-   <div class="card-body">
-    <h4 class="card-title">Ehsan Ahmadi Kian</h4>
-    <p class="card-text">Back-end Developer</p>
-    <p class="card-text">A programmer that wanted to become a philosopher</p>
-    <p class="card-text">ehsan_amd72@hotmail.com</p>
-    <a href="#" class="btn btn-primary">Contact</a>
-   </div>
- </div>
- <div class="card">
-  <img class="card-img-top" src="/static/images/about/kamy.jpg" alt="Reza" style="width:100%; border-radius: 50%;">
-   <div class="card-body">
-    <h4 class="card-title">Reza Hosseinzadeh</h4>
-    <p class="card-text">Front-end Developer</p>
-    <p class="card-text">A biologist developer</p>
-    <p class="card-text">kamyabaghaz@gmail.com</p>
-    <a href="#" class="btn btn-primary">Contact</a>
-   </div>
- </div>
- <div class="card">
-  <img class="card-img-top" src="/static/images/about/ghazale.jpeg" alt="Ghazale" style="width:100%; border-radius: 50%;">
-   <div class="card-body">
-    <h4 class="card-title">Ghazale Motia</h4>
-    <p class="card-text">UI/UX Designer</p>
-    <p class="card-text">Graphic Designer and Illustrator. Polyglot!</p>
-    <p class="card-text">ghmotia@gmail.com</p>
-    <a href="#" class="btn btn-primary">Contact</a>
-   </div>
- </div>
-</div>
+      <h1>About:</h1> 
+      <div class="card-deck">
+      <div class="card">
+        <img class="card-img-top" src="/static/images/about/ehsan.jpg" alt="Ehsan" style="width:50%; border-radius: 50%;">
+        <div class="card-body">
+          <h4 class="card-title">Ehsan Ahmadi Kian</h4>
+          <p class="card-text">Back-end Developer</p>
+          <p class="card-text">A programmer that wanted to become a philosopher</p>
+          <p class="card-text">ehsan_amd72@hotmail.com</p>
+          <a href="#" class="btn btn-primary">Contact</a>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="/static/images/about/kamy.jpg" alt="Reza" style="width:50%; border-radius: 50%;">
+        <div class="card-body">
+          <h4 class="card-title">Reza Hosseinzadeh</h4>
+          <p class="card-text">Front-end Developer</p>
+          <p class="card-text">A biologist developer</p>
+          <p class="card-text">kamyabaghaz@gmail.com</p>
+          <a href="#" class="btn btn-primary">Contact</a>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="/static/images/about/ghazale.jpeg" alt="Ghazale" style="width:50%; border-radius: 50%;">
+        <div class="card-body">
+          <h4 class="card-title">Ghazale Motia</h4>
+          <p class="card-text">UI/UX Designer</p>
+          <p class="card-text">Graphic Designer and Illustrator. Polyglot!</p>
+          <p class="card-text">ghmotia@gmail.com</p>
+          <a href="#" class="btn btn-primary">Contact</a>
+        </div>
+      </div>
+      </div>
     {% endblock %}

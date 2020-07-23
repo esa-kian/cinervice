@@ -1,5 +1,11 @@
 {% extends "base.html" %}
+    {% block title %}
+        {% if page_obj %}
+            Celebrities
+        {% endif %}
+    {% endblock %}
     {% block content %}
+    <h1>Celebrities:</h1> 
     {% if page_obj %}
                 <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for peoples in page_obj %}

@@ -1,6 +1,15 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
+    {% block title %}
+        {% if info %}
+            {% for movie in info %}
+                {{ movie.title }}
+            {% endfor %}
+        {% else %}
+            Not found
+        {% endif %}
+    {% endblock %}
     {% block content %}
-   
         {% if info %}
             <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
                 {% for movie in info %}
@@ -9,7 +18,9 @@
                 <img src="../../{{ movie.image }}" width="600px" />
                 <p style="color: black;">{{ movie.comment }}</p>
                 <div class="txt-center">
-                    <form action="/movies/{{ movie.id }}/vote" method="GET">
+                    <form action="{% url 'main:movie_rate' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ movie.id }}" name="movie-id"/>
                         <div class="rating">
                             <input id="star10" name="point" type="submit" value="10" class="radio-btn hide" />
                             <label for="star10">☆</label>
