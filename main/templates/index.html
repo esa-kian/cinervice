@@ -4,7 +4,7 @@
   Where to Find The Favorite Movie
   {% endblock %}
     {% block content %}
-    <div style="margin: 50px; border: 1px solid thistle; padding: 10px;" class="bd-example">
+    <div style="margin: 50px; border: 1px solid thistle; padding: 10px" class="bd-example">
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -15,7 +15,7 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
 
-              <img src="../../{{ cinema_in_slider.0.image }}" style="width:100%; height: 30em;" class="d-block w-100" alt="Regal">
+              <img src="../../{{ cinema_in_slider.0.image }}" style="width:100%; height: 20em;" class="d-block w-100" alt="Regal">
               <div class="carousel-caption d-none d-md-block">
                 <h5>
                   <a style="color: floralwhite;text-decoration:none;" href="/movie_theaters/{{ cinema_in_slider.0.id }}">{{ cinema_in_slider.0.name }}</a>
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../../{{ cinema_in_slider.1.image }}" style="width:100%; height: 30em;" class="d-block w-100" alt="Cineplex">
+              <img src="../../{{ cinema_in_slider.1.image }}" style="width:100%; height: 20em;" class="d-block w-100" alt="Cineplex">
               <div class="carousel-caption d-none d-md-block">
                 <h5>
                   <a style="color: floralwhite;text-decoration:none;" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.1.name }}</a>
@@ -40,7 +40,7 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../../{{ cinema_in_slider.2.image }}" style="width:100%; height: 30em;" class="d-block w-100" alt="Castro">
+              <img src="../../{{ cinema_in_slider.2.image }}" style="width:100%; height: 20em;" class="d-block w-100" alt="Castro">
               <div class="carousel-caption d-none d-md-block">
                 <h5>
                   <a style="color: floralwhite;text-decoration:none;" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.2.name }}</a>
