@@ -4,10 +4,12 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonRespons
 from .models import Movie, Series, People, Cinema, Role, Contact_Form, Movies_Vote, Series_Vote, Cinema_Vote, People_Vote
 from news.models import New
 from django.db.models import Avg
+from itertools import chain
 
 
 def index(request):
     if(request.user.is_authenticated):
+        # Estimate average of user votes
         rate_avg_movie = Movies_Vote.objects.filter(
             user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
         rate_avg_serial = Series_Vote.objects.filter(
@@ -18,13 +20,46 @@ def index(request):
             user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
         avg_vote = (rate_avg_movie+rate_avg_serial +
                     rate_avg_people+rate_avg_cinema)/4
+
+        # Suggest By Vote to The People
+        fav_people = People_Vote.objects.filter(
+            vote__gt=avg_vote, user_id=request.user.id)
+        for j in fav_people:
+            role_fav_people = Role.objects.filter(person=j.people_id)
+            for k in role_fav_people:
+                cinema_in_slider_by_people = Cinema.objects.filter(
+                    movie=k.movie_id)
+
+        # Suggest By Vote to The Movies
         fav_movie = Movies_Vote.objects.filter(
             vote__gt=avg_vote, user_id=request.user.id)
+
+        # Suggest By Vote to The Movie(people are same)
         for i in fav_movie:
-            cinema_in_slider = Cinema.objects.filter(movie=i.movie_id)
-            print(cinema_in_slider)
+            role_in_fav_movie = Role.objects.filter(movie=i.movie_id)
+            for m in role_in_fav_movie:
+                movie_of_fav_role = Role.objects.filter(person=m.person_id)
+                for n in movie_of_fav_role:
+                    cinema_in_slider_by_movie = Cinema.objects.filter(
+                        movie=n.movie_id)
+
+        # Suggest By Vote to The Serial(people are same)
+        fav_serial = Series_Vote.objects.filter(
+            vote__gt=avg_vote, user_id=request.user.id)
+        for x in fav_serial:
+            role_in_fav_serial = Role.objects.filter(serial=x.serial_id)
+            for y in role_in_fav_serial:
+                movie_of_fav_role = Role.objects.filter(person=y.person_id)
+                for z in movie_of_fav_role:
+                    cinema_in_slider_by_serial = Cinema.objects.filter(
+                        movie=z.movie_id)
+        cinema_in_slider = list(chain(
+            cinema_in_slider_by_movie, cinema_in_slider_by_people, cinema_in_slider_by_serial))
+            
+    # NONE Suggestion
     else:
         cinema_in_slider = Cinema.objects.all()[:3]
+
     news_in_index = New.objects.all()[:5]
     context = {
         'cinema_in_slider': cinema_in_slider,
@@ -37,7 +72,7 @@ def index(request):
 
 def movies(request):
     movie_list = Movie.objects.all()
-    paginator = Paginator(movie_list, 2)
+    paginator = Paginator(movie_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'movies/list.html', {'page_obj': page_obj})
@@ -89,7 +124,7 @@ def movie_rate(request):
 
 def series(request):
     series_list = Series.objects.all()
-    paginator = Paginator(series_list, 2)
+    paginator = Paginator(series_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'series/list.html', {'page_obj': page_obj})
@@ -142,7 +177,7 @@ def seri_rate(request):
 
 def people(request):
     people_list = People.objects.all()
-    paginator = Paginator(people_list, 2)
+    paginator = Paginator(people_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {

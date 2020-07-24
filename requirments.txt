@@ -4,3 +4,7 @@ Requirement already satisfied: Django>=2.2 in /home/ehsan/.local/lib/python3.8/s
 Requirement already satisfied: sqlparse>=0.2.2 in /home/ehsan/.local/lib/python3.8/site-packages (from Django>=2.2->django-registration) (0.3.1)
 Requirement already satisfied: pytz in /home/ehsan/.local/lib/python3.8/site-packages (from Django>=2.2->django-registration) (2020.1)
 Requirement already satisfied: asgiref~=3.2 in /home/ehsan/.local/lib/python3.8/site-packages (from Django>=2.2->django-registration) (3.2.7)
+pip install django-bootstrap4 --user
+pip install django-jquery --user
+pip install django-allauth --user
+pip install django-react-components django-webpack-loader --user

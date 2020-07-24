@@ -45,6 +45,8 @@ class Cinema(models.Model):
 
     def __str__(self):
         return self.name
+
+
 class Movies_Vote(models.Model):
     movie = models.ForeignKey(Movie, null=False, on_delete = models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
