@@ -18,44 +18,103 @@ def index(request):
             user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
         rate_avg_cinema = Cinema_Vote.objects.filter(
             user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
-        avg_vote = (rate_avg_movie+rate_avg_serial +
-                    rate_avg_people+rate_avg_cinema)/4
 
-        # Suggest By Vote to The People
-        fav_people = People_Vote.objects.filter(
-            vote__gt=avg_vote, user_id=request.user.id)
-        for j in fav_people:
-            role_fav_people = Role.objects.filter(person=j.people_id)
-            for k in role_fav_people:
-                cinema_in_slider_by_people = Cinema.objects.filter(
-                    movie=k.movie_id)
+        if(rate_avg_movie is not None or rate_avg_serial is not None or
+           rate_avg_people is not None or rate_avg_cinema is not None):
+            if(rate_avg_movie is None):
+                rate_avg_movie = 0
+            if(rate_avg_serial is None):
+                rate_avg_serial = 0
+            if(rate_avg_people is None):
+                rate_avg_people = 0
+            if(rate_avg_cinema is None):
+                rate_avg_cinema = 0
+            avg_vote = (rate_avg_movie+rate_avg_serial +
+                        rate_avg_people+rate_avg_cinema)/4
 
-        # Suggest By Vote to The Movies
-        fav_movie = Movies_Vote.objects.filter(
-            vote__gt=avg_vote, user_id=request.user.id)
+            # Suggest By Vote to The People
+            cinema_in_slider_by_people = []
+            fav_people = People_Vote.objects.filter(
+                vote__gt=avg_vote, user_id=request.user.id)
+            for j in fav_people:
+                role_fav_people = Role.objects.filter(person=j.people_id)
+                for k in role_fav_people:
+                    suggest_movie = Movies_Vote.objects.filter(
+                        user_id=request.user.id, movie=k.movie_id, vote__gt=avg_vote)
+                    for l in suggest_movie:
+                        # Select all cinemas have current movie
 
-        # Suggest By Vote to The Movie(people are same)
-        for i in fav_movie:
-            role_in_fav_movie = Role.objects.filter(movie=i.movie_id)
-            for m in role_in_fav_movie:
-                movie_of_fav_role = Role.objects.filter(person=m.person_id)
-                for n in movie_of_fav_role:
-                    cinema_in_slider_by_movie = Cinema.objects.filter(
-                        movie=n.movie_id)
+                        all_cinema = Cinema.objects.filter(
+                            movie=l.movie_id)
+                        for ll in all_cinema:
+                            # Select cinemas by average vote
 
-        # Suggest By Vote to The Serial(people are same)
-        fav_serial = Series_Vote.objects.filter(
-            vote__gt=avg_vote, user_id=request.user.id)
-        for x in fav_serial:
-            role_in_fav_serial = Role.objects.filter(serial=x.serial_id)
-            for y in role_in_fav_serial:
-                movie_of_fav_role = Role.objects.filter(person=y.person_id)
-                for z in movie_of_fav_role:
-                    cinema_in_slider_by_serial = Cinema.objects.filter(
-                        movie=z.movie_id)
-        cinema_in_slider = list(chain(
-            cinema_in_slider_by_movie, cinema_in_slider_by_people, cinema_in_slider_by_serial))
-            
+                            cinema_by_people = Cinema_Vote.objects.filter(
+                                user_id=request.user.id, cinema=ll.id, vote__gt=avg_vote)
+                            for it in cinema_by_people:
+                                cinema_in_slider_by_people = Cinema.objects.filter(
+                                    id=it.cinema_id)
+
+            # Suggest By Vote to The Movies
+            fav_movie = Movies_Vote.objects.filter(
+                vote__gt=avg_vote, user_id=request.user.id)
+
+            # Suggest By Vote to The Movie(people are same)
+            cinema_in_slider_by_movie = []
+            for i in fav_movie:
+                role_in_fav_movie = Role.objects.filter(movie=i.movie_id)
+                for m in role_in_fav_movie:
+                    movie_of_fav_role = Role.objects.filter(person=m.person_id)
+                    for n in movie_of_fav_role:
+                        suggest_movie = Movies_Vote.objects.filter(
+                            user_id=request.user.id, movie=n.movie_id, vote__gt=avg_vote)
+                        for o in suggest_movie:
+                            # Select all cinemas have current movie
+
+                            all_cinema = Cinema.objects.filter(
+                                movie=o.movie_id)
+                            for oo in all_cinema:
+                                # Select cinemas by average vote
+
+                                cinema_by_movie = Cinema_Vote.objects.filter(
+                                    user_id=request.user.id, cinema=oo.id, vote__gt=avg_vote)
+                                for it in cinema_by_movie:
+                                    cinema_in_slider_by_movie = Cinema.objects.filter(
+                                        id=it.cinema_id)
+
+            # Suggest By Vote to The Serial(people are same)
+            cinema_in_slider_by_serial = []
+            fav_serial = Series_Vote.objects.filter(
+                vote__gt=avg_vote, user_id=request.user.id)
+            for x in fav_serial:
+                role_in_fav_serial = Role.objects.filter(serial=x.serial_id)
+                for y in role_in_fav_serial:
+                    movie_of_fav_role = Role.objects.filter(person=y.person_id)
+                    for z in movie_of_fav_role:
+                        suggest_movie = Movies_Vote.objects.filter(
+                            user_id=request.user.id, movie=z.movie_id, vote__gt=avg_vote)
+                        for w in suggest_movie:
+                            # Select all cinemas have current movie
+
+                            all_cinema = Cinema.objects.filter(
+                                movie=w.movie_id)
+                            for ww in all_cinema:
+                                # Select cinemas by average vote
+
+                                cinema_by_serial = Cinema_Vote.objects.filter(
+                                    user_id=request.user.id, cinema=ww.id, vote__gt=avg_vote)
+                                for it in cinema_by_serial:
+                                    cinema_in_slider_by_serial = Cinema.objects.filter(
+                                        id=it.cinema_id)
+
+            if (cinema_in_slider_by_movie is not None or cinema_in_slider_by_people is not None or cinema_in_slider_by_serial):
+                cinema_in_slider = list(chain(
+                    cinema_in_slider_by_movie, cinema_in_slider_by_people, cinema_in_slider_by_serial))
+            else:
+                cinema_in_slider = Cinema.objects.all()[:3]
+        else:
+            cinema_in_slider = Cinema.objects.all()[:3]
+
     # NONE Suggestion
     else:
         cinema_in_slider = Cinema.objects.all()[:3]
