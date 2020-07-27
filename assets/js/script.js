@@ -4,5 +4,8 @@ $(document).ready(function() {
 });
 // Active nav
 $(document).ready(function() {
-  $('a[href$="' + location.pathname + '"]').addClass('active');
+  $.each($('#navbar').find('li'), function() {
+      $(this).toggleClass('active', 
+          window.location.pathname.indexOf($(this).find('a').attr('href')) > -1);
+  }); 
 });

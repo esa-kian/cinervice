@@ -2,7 +2,9 @@
   width: 100%;
   height: 100%;
 }
-.fuck {
-  width: 100%;
-  height: 100%;
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to right, #b92b27, #1565c0)
 }
