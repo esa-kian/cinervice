@@ -5,6 +5,7 @@ from .models import Movie, Series, People, Cinema, Role, Contact_Form, Movies_Vo
 from news.models import New
 from django.db.models import Avg, Count
 from itertools import chain
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -29,15 +30,13 @@ def index(request):
                 rate_avg_people = 0
             if(rate_avg_cinema is None):
                 rate_avg_cinema = 0
-            avg_vote = (rate_avg_movie+rate_avg_serial +
-                        rate_avg_people+rate_avg_cinema)/4
 
             # Suggest By Vote to The People
             cinema_in_slider_by_people = []
 
             # fetch all popular people
             all_fav_people = People_Vote.objects.filter(
-                vote__gte=avg_vote, user_id=request.user.id)
+                vote__gte=rate_avg_people, user_id=request.user.id)
 
             for i in all_fav_people:
                 # fetch all role of popular people
@@ -51,76 +50,98 @@ def index(request):
 
                     for iii in fav_movie_filtered:
                         # fetch all role in popular movie
-                        all_role_in_fav_movie = Role.objects.filter(
+                        all_role_in_fav_movie_by_people = Role.objects.filter(
                             movie=iii.movie_id)
                         sum_rate_of_people_in_movie = 0
 
-                        for calc in all_role_in_fav_movie:
-                            # calculate average rate of popular movie
-                            sum_rate_of_people_in_movie += People_Vote.objects.filter(people=calc.person_id,
-                                                                                      user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+                        # calculate average rate of popular movie
+                        for calc in all_role_in_fav_movie_by_people:
+                            try:
+                                sum_rate_of_people_in_movie += People_Vote.objects.filter(people=calc.person_id,
+                                                                                          user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+                            except:
+                                sum_rate_of_people_in_movie = 0
                         avg_rate_of_people_in_movie = sum_rate_of_people_in_movie / \
-                            all_role_in_fav_movie.count()
+                            all_role_in_fav_movie_by_people.count()
+
+                        # filter people that less than average rate
+                        print(avg_rate_of_people_in_movie)
                         if avg_rate_of_people_in_movie >= rate_avg_people:
-                            for iv in all_role_in_fav_movie:
+                            for iv in all_role_in_fav_movie_by_people:
+                                # fetch all cinema by fav movie
                                 cinema_by_filtered_movie = Cinema.objects.filter(
                                     movie=iv.movie_id)
 
                                 for v in cinema_by_filtered_movie:
+                                    # filter cinema by average vote
                                     fav_cinema = Cinema_Vote.objects.filter(
                                         user_id=request.user.id, cinema=v.id).exclude(vote__lt=rate_avg_cinema)
 
                                     for vi in fav_cinema:
+                                        # fetch cinema filtered
                                         filtered_cinema = Cinema.objects.filter(
                                             id=vi.cinema_id)
-                                        cinema_in_slider_by_people = list(
-                                            chain(filtered_cinema))
+                                        for j in filtered_cinema:
+                                            cinema_in_slider_by_people.append(
+                                                j)
 
             # Suggest By Vote to The Movie(people are same)
             cinema_in_slider_by_movie = []
 
             # fetch all popular movie
             all_fav_movie = Movies_Vote.objects.filter(
-                vote__gte=avg_vote, user_id=request.user.id)
+                vote__gte=rate_avg_movie, user_id=request.user.id)
 
             for i in all_fav_movie:
                 # fetch all role in popular movie
                 all_role_in_fav_movie = Role.objects.filter(movie=i.movie_id)
-                for ii in all_role_in_fav_movie:
-                    # filter popular people in movie(make function <filter_popular_people> for this!!!!!!!)
-                    fav_people_in_movie = People_Vote.objects.filter(
-                        people=ii.person_id, user_id=request.user.id).exclude(vote__lt=rate_avg_people)
-                    for iii in fav_people_in_movie:
-                        # fetch popular people(make function <fetch_popular_people> for this!!!!!!!)
-                        fetch_popular_people = Role.objects.filter(
-                            person=iii.people_id)
 
-                        for iv in fetch_popular_people:
-                            # fetch movies of popular people(make function <fetch_movie_of_popular_people> for this!!!!!)
-                            movies_of_popular_people = Movie.objects.filter(
-                                id=iv.movie_id)
-                            for v in movies_of_popular_people:
-                                # filter popular movies of people
-                                fav_movie_filtered = Movies_Vote.objects.filter(
-                                    movie=v.id, user_id=request.user.id).exclude(vote__lt=rate_avg_movie)
-                                for vi in fav_movie_filtered:
-                                    # fetch cinemas have popular movie
-                                    find_cinema_for_fav_movie = Cinema.objects.filter(
-                                        movie=vi.movie_id)
-                                    for vii in find_cinema_for_fav_movie:
-                                        # filter popular cinema of movie
-                                        fav_cinema_filtered = Cinema_Vote.objects.filter(
-                                            cinema=vii.id, user_id=request.user.id).exclude(vote__lt=rate_avg_cinema)
-                                        for it in fav_cinema_filtered:
-                                            cinema_in_slider_by_movie = Cinema.objects.filter(
-                                                id=it.cinema_id)
+                for ii in all_role_in_fav_movie:
+                    # filter popular movie of popular people
+                    fav_movie_filtered = Movies_Vote.objects.filter(
+                        movie=ii.movie_id, user_id=request.user.id).exclude(vote__lt=rate_avg_movie)
+
+                    for iii in fav_movie_filtered:
+                        # fetch all role in popular movie
+                        all_role_in_fav_movie_by_people = Role.objects.filter(
+                            movie=iii.movie_id)
+                        sum_rate_of_people_in_movie = 0
+
+                        # calculate average rate of popular movie
+                        for calc in all_role_in_fav_movie_by_people:
+                            try:
+                                sum_rate_of_people_in_movie += People_Vote.objects.filter(people=calc.person_id,
+                                                                                          user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+                            except:
+                                sum_rate_of_people_in_movie = 0
+                        avg_rate_of_people_in_movie = sum_rate_of_people_in_movie / \
+                            all_role_in_fav_movie_by_people.count()
+
+                        # filter people that less than average rate
+                        if avg_rate_of_people_in_movie >= rate_avg_people:
+                            for iv in all_role_in_fav_movie_by_people:
+                                # fetch all cinema by fav movie
+                                cinema_by_filtered_movie = Cinema.objects.filter(
+                                    movie=iv.movie_id)
+
+                                for v in cinema_by_filtered_movie:
+                                    # filter cinema by average vote
+                                    fav_cinema = Cinema_Vote.objects.filter(
+                                        user_id=request.user.id, cinema=v.id).exclude(vote__lt=rate_avg_cinema)
+
+                                    for vi in fav_cinema:
+                                        # fetch cinema filtered
+                                        filtered_cinema = Cinema.objects.filter(
+                                            id=vi.cinema_id)
+                                        for j in filtered_cinema:
+                                            cinema_in_slider_by_movie.append(j)
 
             # Suggest By Vote to The Serial(people are same)
             cinema_in_slider_by_serial = []
 
             # fetch all popular serial
             all_fav_serial = Series_Vote.objects.filter(
-                vote__gte=avg_vote, user_id=request.user.id)
+                vote__gte=rate_avg_serial, user_id=request.user.id)
 
             for i in all_fav_serial:
                 # fetch all role in popular serial
@@ -128,43 +149,60 @@ def index(request):
                     serial=i.serial_id)
 
                 for ii in all_role_in_fav_serial:
-                    # filter popular people in serial(make function <filter_popular_people> for this!!!!!!!)
-                    fav_people_in_serial = People_Vote.objects.filter(
-                        people=ii.person_id, user_id=request.user.id).exclude(vote__lt=rate_avg_people)
+                    # filter popular movie of popular people
+                    fav_movie_filtered = Movies_Vote.objects.filter(
+                        movie=ii.movie_id, user_id=request.user.id).exclude(vote__lt=rate_avg_movie)
 
-                    for iii in fav_people_in_serial:
-                        # fetch popular people(make function <fetch_popular_people> for this!!!!!!!)
-                        fetch_popular_people = Role.objects.filter(
-                            person=iii.people_id)
+                    for iii in fav_movie_filtered:
+                        # fetch all role in popular movie
+                        all_role_in_fav_movie_by_people = Role.objects.filter(
+                            movie=iii.movie_id)
+                        sum_rate_of_people_in_movie = 0
 
-                        for iv in fetch_popular_people:
-                            # fetch movies of popular people(make function <fetch_movie_of_popular_people> for this!!!!!)
-                            movies_of_popular_people = Movie.objects.filter(
-                                id=iv.movie_id)
+                        # calculate average rate of popular movie
+                        for calc in all_role_in_fav_movie_by_people:
+                            try:
+                                sum_rate_of_people_in_movie += People_Vote.objects.filter(people=calc.person_id,
+                                                                                          user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+                            except:
+                                sum_rate_of_people_in_movie = 0
+                        avg_rate_of_people_in_movie = sum_rate_of_people_in_movie / \
+                            all_role_in_fav_movie_by_people.count()
 
-                            for v in movies_of_popular_people:
-                                # filter popular movies of people
-                                fav_movie_filtered = Movies_Vote.objects.filter(
-                                    movie=v.id, user_id=request.user.id).exclude(vote__lt=rate_avg_movie)
+                        # filter people that less than average rate
+                        if avg_rate_of_people_in_movie >= rate_avg_people:
+                            for iv in all_role_in_fav_movie_by_people:
+                                # fetch all cinema by fav movie
+                                cinema_by_filtered_movie = Cinema.objects.filter(
+                                    movie=iv.movie_id)
 
-                                for vi in fav_movie_filtered:
-                                    # fetch cinemas have popular movie
-                                    find_cinema_for_fav_movie = Cinema.objects.filter(
-                                        movie=vi.movie_id)
+                                for v in cinema_by_filtered_movie:
+                                    # filter cinema by average vote
+                                    fav_cinema = Cinema_Vote.objects.filter(
+                                        user_id=request.user.id, cinema=v.id).exclude(vote__lt=rate_avg_cinema)
 
-                                    for vii in find_cinema_for_fav_movie:
-                                        # filter popular cinema of movie
-                                        fav_cinema_filtered = Cinema_Vote.objects.filter(
-                                            cinema=vii.id, user_id=request.user.id).exclude(vote__lt=rate_avg_cinema)
-
-                                        for it in fav_cinema_filtered:
-                                            cinema_in_slider_by_serial = Cinema.objects.filter(
-                                                id=it.cinema_id)
+                                    for vi in fav_cinema:
+                                        # fetch cinema filtered
+                                        filtered_cinema = list(Cinema.objects.filter(
+                                            id=vi.cinema_id))
+                                        for j in filtered_cinema:
+                                            cinema_in_slider_by_serial.append(
+                                                j)
 
             cinema_in_slider = list(chain(
                 cinema_in_slider_by_movie, cinema_in_slider_by_people, cinema_in_slider_by_serial))
-            print(cinema_in_slider)
 
+            # if can't find any cinema by votes
+            if len(cinema_in_slider) == 0:
+                fav_cinema = Cinema_Vote.objects.filter(
+                    user_id=request.user.id).exclude(vote__lt=rate_avg_cinema)
+                for j in fav_cinema:
+                    cinema = list(
+                        Cinema.objects.filter(id=j.cinema_id))
+                    for jj in cinema:
+                        cinema_in_slider.append(jj)
+
+            print(cinema_in_slider)
         else:
             cinema_in_slider = Cinema.objects.all()[:3]
 
@@ -199,11 +237,24 @@ def movie_info(request, movie_id):
             movie_id=movie_id).aggregate(Avg('vote')).get('vote__avg')
         if(rate is not None):
             rate = round(rate, 2)
+        actors = Role.objects.all().filter(movie_id=movie_id, type_of_role='A')
+        directors = Role.objects.all().filter(movie_id=movie_id, type_of_role='D')
+        writers = Role.objects.all().filter(movie_id=movie_id, type_of_role='W')
+        cinemas = Cinema.objects.all().filter(movie=movie_id)
     except Movie.DoesNotExist:
         raise Http404("Movie does not exist")
-    return render(request, 'movies/info.html', {'info': movie_info, 'count': count, 'rate': rate})
+    return render(request, 'movies/info.html', {
+        'info': movie_info,
+        'count': count,
+        'rate': rate,
+        'actors': actors,
+        'directors': directors,
+        'writers': writers,
+        'cinemas': cinemas,
+    })
 
 
+@ csrf_exempt
 def movie_rate(request):
     if request.method == "POST":
         if(request.user.is_authenticated):
@@ -251,11 +302,22 @@ def seri_info(request, seri_id):
             serial_id=seri_id).aggregate(Avg('vote')).get('vote__avg')
         if(rate is not None):
             rate = round(rate, 2)
+        actors = Role.objects.all().filter(serial_id=seri_id, type_of_role='A')
+        directors = Role.objects.all().filter(serial_id=seri_id, type_of_role='D')
+        writers = Role.objects.all().filter(serial_id=seri_id, type_of_role='W')
     except Series.DoesNotExist:
         raise Http404("TV Show does not exist")
-    return render(request, 'series/info.html', {'info': seri_info, 'count': count, 'rate': rate})
+    return render(request, 'series/info.html', {
+        'info': seri_info,
+        'count': count,
+        'rate': rate,
+        'actors': actors,
+        'directors': directors,
+        'writers': writers,
+    })
 
 
+@ csrf_exempt
 def seri_rate(request):
     if request.method == "POST":
         if(request.user.is_authenticated):
@@ -307,18 +369,21 @@ def people_info(request, people_id):
             people_id=people_id).aggregate(Avg('vote')).get('vote__avg')
         if(rate is not None):
             rate = round(rate, 2)
-        role_list = Role.objects.all().filter(person_id=people_id)
+        movies = Role.objects.all().filter(person_id=people_id, type_of_product='M')
+        series = Role.objects.all().filter(person_id=people_id, type_of_product='S')
         context = {
             'info': people_info,
-            'role': role_list,
             'count': count,
             'rate': rate,
+            'movies': movies,
+            'series': series,
         }
     except People.DoesNotExist:
         raise Http404("People does not exist")
     return render(request, 'peoples/info.html', context)
 
 
+@csrf_exempt
 def people_rate(request):
     if request.method == "POST":
         if(request.user.is_authenticated):
@@ -376,6 +441,7 @@ def cinema_info(request, cinema_id):
     return render(request, 'cinemas/info.html', {'info': cinema_info, 'count': count, 'rate': rate})
 
 
+@csrf_exempt
 def cinema_rate(request):
     if request.method == "POST":
         if(request.user.is_authenticated):
@@ -413,16 +479,15 @@ def about(request):
 # Contact Part Method
 
 
+@csrf_exempt
 def contact(request):
     if request.method == "GET":
         return render(request, 'contact.html')
     elif request.method == "POST":
-        first_name = request.POST.get('firstname')
-        last_name = request.POST.get('lastname')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         contact_form = Contact_Form(
-            first_name=first_name, last_name=last_name, email=email, subject=subject)
+            email=email, subject=subject)
         contact_form.save()
         return JsonResponse({'situation': 'Your form has been received!'})
     else:

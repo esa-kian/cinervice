@@ -52,6 +52,42 @@
                     <p>Nobody voted this.</p>
                 {% endif %}
                 <hr>
+                    {% if actors %}
+                        Actors: 
+                        {% for actor in actors %}
+                            <a style="color: floralwhite;" href="/people/{{ actor.person.id}}">{{ actor.person.full_name }} </a> ,
+                        {% endfor %}
+                    {% else %}
+                        <p>No actors are available.</p>
+                    {% endif %}
+                <hr>
+                    {% if directors %}
+                        Directors: 
+                        {% for director in directors %}
+                            <a style="color: floralwhite;" href="/people/{{ director.person.id}}">{{ director.person.full_name }} </a> ,
+                        {% endfor %}
+                    {% else %}
+                        <p>No directors are available.</p>
+                    {% endif %}
+                <hr>
+                    {% if writers %}
+                        Writers: 
+                        {% for writer in writers %}
+                            <a style="color: floralwhite;" href="/people/{{ writer.person.id}}">{{ writer.person.full_name }} </a> ,
+                        {% endfor %}
+                    {% else %}
+                        <p>No writers are available.</p>
+                    {% endif %}
+                <hr>
+                    {% if cinemas %}
+                        Movie Theaters:
+                        {% for cinema in cinemas %}
+                            <a style="color: floralwhite;" href="/movie_theaters/{{ cinema.id}}">{{ cinema.name }} </a> ,
+                        {% endfor %}
+                    {% else %}
+                        <p>No cinemas are available.</p>
+                    {% endif %}
+                <hr>
                 {% endfor %}
             </div>
         {% else %}

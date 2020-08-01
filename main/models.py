@@ -92,8 +92,6 @@ class Role(models.Model):
 
 
 class Contact_Form(models.Model):
-    first_name = models.CharField(max_length=300)
-    last_name = models.CharField(max_length=300)
     email = models.EmailField(max_length=300, null=False)
     subject = models.TextField(null=False, blank=False)
     def __str__(self):
