@@ -420,7 +420,7 @@ def people_rate(request):
 
 def cinemas(request):
     cinema_list = Cinema.objects.all()
-    paginator = Paginator(cinema_list, 1)
+    paginator = Paginator(cinema_list, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
