@@ -53,17 +53,22 @@
                     <p>Nobody voted this.</p>
                 {% endif %}
                 <hr>
-                    {% if role %}
+                    {% if movies %}
                         Movies: 
-                        {% for roles in role %}
-                            <p style="color: floralwhite;">{{ roles.movie.title }}</p>
-                        {% endfor %}
-                        TV Shows:
-                        {% for roles in role %}
-                            <p style="color: floralwhite;">{{ roles.serial.title }}</p>
+                        {% for movie in movies %}
+                            <a style="color: floralwhite;" href="/movies/{{ movie.movie.id}}">{{ movie.movie.title }} </a> ,
                         {% endfor %}
                     {% else %}
-                        <p>No roles are available.</p>
+                        <p>No Movies are available.</p>
+                    {% endif %}
+                <hr>
+                    {% if series %}
+                        TV Shows: 
+                        {% for seri in series %}
+                            <a style="color: floralwhite;" href="/tv_shows/{{ seri.serial.id}}">{{ seri.serial.title }} </a> ,
+                        {% endfor %}
+                    {% else %}
+                        <p>No TV Shows are available.</p>
                     {% endif %}
                 <hr>
                 {% endfor %}

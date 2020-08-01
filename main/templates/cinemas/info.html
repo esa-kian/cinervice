@@ -93,7 +93,7 @@
                 <hr>
                 <p style="color: floralwhite;">Movies: 
                     {% for movie in movie_theater.movie.all %}
-                        {{ movie.title }}
+                        <a style="color: floralwhite;" href="/movies/{{ movie.id}}"> {{ movie.title }} </a>
                     {% endfor %}
                 </p>
                 {% endfor %}

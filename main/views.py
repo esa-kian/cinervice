@@ -371,6 +371,7 @@ def people_info(request, people_id):
             rate = round(rate, 2)
         movies = Role.objects.all().filter(person_id=people_id, type_of_product='M')
         series = Role.objects.all().filter(person_id=people_id, type_of_product='S')
+        print(series)
         context = {
             'info': people_info,
             'count': count,
