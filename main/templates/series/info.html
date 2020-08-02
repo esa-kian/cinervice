@@ -15,7 +15,7 @@
                 {% for seri in info %}
                 <h3><a style="color: black;text-decoration:none;" href="/tv_shows/{{ seri.id }}">{{ seri.title }}</a></h3>
                 {% load static %}
-                <img src="../../{{ seri.image }}" width="600px" />
+                <img class="img-fluid" src="../../{{ seri.image }}" width="600px"/>
                 <div class="txt-center">
                     <form action="{% url 'main:seri_rate' %}" method="POST">
                         {% csrf_token %}

@@ -12,7 +12,7 @@
                     <h3><a style="color: black;text-decoration:none;" href="/people/{{ peoples.id}}">{{ peoples.full_name }}</a></h3>
                     {% load static %}
 
-                    <img src="../{{ peoples.image }}" width="600px" />
+                    <img class="img-fluid" src="../{{ peoples.image }}" width="600px" />
                     <p style="color: black;">{{ peoples.comment }}</p>
                     <hr>
                 {% endfor %}

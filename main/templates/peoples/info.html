@@ -15,7 +15,7 @@
                 {% for people in info %}
                 <h3><a style="color: black;text-decoration:none;" href="/people/{{ people.id }}">{{ people.full_name }}</a></h3>
                 {% load static %}
-                <img src="../../{{ people.image }}" width="600px" />
+                <img class="img-fluid" src="../../{{ people.image }}" width="600px"/>
                 
                 <div class="txt-center">
                     <form action="{% url 'main:people_rate' %}" method="POST">
