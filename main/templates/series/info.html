@@ -11,9 +11,9 @@
     {% endblock %}
     {% block content %}
         {% if info %}
-            <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+            <div class="borderz">
                 {% for seri in info %}
-                <h3><a style="color: black;text-decoration:none;" href="/tv_shows/{{ seri.id }}">{{ seri.title }}</a></h3>
+                <h3><a class="textx" href="/tv_shows/{{ seri.id }}">{{ seri.title }}</a></h3>
                 {% load static %}
                 <img class="img-fluid" src="../../{{ seri.image }}" width="600px"/>
                 <div class="txt-center">
@@ -45,7 +45,7 @@
                         </div>
                     </form>
                 </div>
-                <p style="color: floralwhite;">{{ seri.comment }}</p>
+                <p class="textz">{{ seri.comment }}</p>
                 <hr>
                 {% if rate %}
                     <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
@@ -56,7 +56,7 @@
                     {% if actors %}
                         Actors: 
                         {% for actor in actors %}
-                            <a style="color: floralwhite;" href="/people/{{ actor.person.id}}">{{ actor.person.full_name }} </a> ,
+                            <a class="textz" href="/people/{{ actor.person.id}}">{{ actor.person.full_name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No actors are available.</p>
@@ -65,7 +65,7 @@
                     {% if directors %}
                         Directors: 
                         {% for director in directors %}
-                            <a style="color: floralwhite;" href="/people/{{ director.person.id}}">{{ director.person.full_name }} </a> ,
+                            <a class="textz" href="/people/{{ director.person.id}}">{{ director.person.full_name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No directors are available.</p>
@@ -74,7 +74,7 @@
                     {% if writers %}
                         Writers: 
                         {% for writer in writers %}
-                            <a style="color: floralwhite;" href="/people/{{ writer.person.id}}">{{ writer.person.full_name }} </a> ,
+                            <a class="textz" href="/people/{{ writer.person.id}}">{{ writer.person.full_name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No writers are available.</p>

@@ -11,9 +11,9 @@
     {% endblock %}
     {% block content %}
         {% if info %}
-            <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+            <div class="borderz">
                 {% for people in info %}
-                <h3><a style="color: black;text-decoration:none;" href="/people/{{ people.id }}">{{ people.full_name }}</a></h3>
+                <h3><a class="textx" href="/people/{{ people.id }}">{{ people.full_name }}</a></h3>
                 {% load static %}
                 <img class="img-fluid" src="../../{{ people.image }}" width="600px"/>
                 
@@ -46,7 +46,7 @@
                         </div>
                     </form>
                 </div>
-                <p style="color: floralwhite;">{{ people.comment }}</p>
+                <p class="textz">{{ people.comment }}</p>
                 {% if rate %}
                     <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
                 {% else %}
@@ -56,7 +56,7 @@
                     {% if movies %}
                         Movies: 
                         {% for movie in movies %}
-                            <a style="color: floralwhite;" href="/movies/{{ movie.movie.id}}">{{ movie.movie.title }} </a> ,
+                            <a class="textz" href="/movies/{{ movie.movie.id}}">{{ movie.movie.title }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No Movies are available.</p>
@@ -65,7 +65,7 @@
                     {% if series %}
                         TV Shows: 
                         {% for seri in series %}
-                            <a style="color: floralwhite;" href="/tv_shows/{{ seri.serial.id}}">{{ seri.serial.title }} </a> ,
+                            <a class="textz" href="/tv_shows/{{ seri.serial.id}}">{{ seri.serial.title }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No TV Shows are available.</p>

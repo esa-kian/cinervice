@@ -7,13 +7,13 @@
     {% block content %}
     <h1>TV Shows:</h1> 
     {% if page_obj %}
-                <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+                <div class="borderz">
                 {% for series in page_obj %}
-                    <h3><a style="color: black;text-decoration:none;" href="/tv_shows/{{ series.id }}">{{ series.title }}</a></h3>
+                    <h3><a class="textx" href="/tv_shows/{{ series.id }}">{{ series.title }}</a></h3>
                     {% load static %}
 
                     <img class="img-fluid" src="../{{ series.image }}" width="600px" />
-                    <p style="color: black;">{{ series.comment }}</p>
+                    <p class="textx">{{ series.comment }}</p>
                     <hr>
                 {% endfor %}
                 </div>

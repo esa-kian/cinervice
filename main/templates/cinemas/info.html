@@ -12,9 +12,9 @@
     {% block content %}
         {% if info %}
 
-            <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+            <div class="borderz">
                 {% for movie_theater in info %}
-                <h3><a style="color: black;text-decoration:none;" href="/movie_theaters/{{ movie_theater.id }}">{{ movie_theater.name }}</a></h3>
+                <h3><a class="textx" href="/movie_theaters/{{ movie_theater.id }}">{{ movie_theater.name }}</a></h3>
                 {% load static %}
                 <img class="img-fluid" src="../../{{ movie_theater.image }}" width="600px"  />
                 <div class="txt-center">
@@ -47,16 +47,16 @@
                     </form>
                 </div>
                 <br>
-                <p style="color: floralwhite;">{{ movie_theater.address }}</p>
+                <p class="textz">{{ movie_theater.address }}</p>
                 {% if rate %}
                     <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
                 {% else %}
                     <p>Nobody voted this.</p>
                 {% endif %}
                 <hr>
-                <p style="color: floralwhite;">Movies: 
+                <p class="textz">Movies: 
                     {% for movie in movie_theater.movie.all %}
-                        <a style="color: floralwhite;" href="/movies/{{ movie.id}}"> {{ movie.title }} </a>
+                        <a class="textz" href="/movies/{{ movie.id}}"> {{ movie.title }} </a>
                     {% endfor %}
                 </p>
                 {% endfor %}

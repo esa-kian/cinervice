@@ -4,7 +4,7 @@
   Where to Find The Favorite Movie
   {% endblock %}
     {% block content %}
-    <div style="margin: 50px; border: 1px solid thistle; padding: 10px" class="bd-example">
+    <div class="bd-example borderz">
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -15,39 +15,39 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
 
-              <img src="../../{{ cinema_in_slider.0.image }}" style="width:100%; height: 20em;" class="d-block w-100" alt="{{ cinema_in_slider.0.name }}">
+              <img src="../../{{ cinema_in_slider.0.image }}" class="carouselimgz d-block w-100" style=" width:100%;height: 20em;" alt="{{ cinema_in_slider.0.name }}">
               <div class="carousel-caption d-none d-md-block">
                 <h5>
-                  <a style="color: floralwhite;text-decoration:none;" href="/movie_theaters/{{ cinema_in_slider.0.id }}">{{ cinema_in_slider.0.name }}</a>
+                  <a class="textz" href="/movie_theaters/{{ cinema_in_slider.0.id }}">{{ cinema_in_slider.0.name }}</a>
                 </h5>
                 <p>
                   Movies: {% for movie in cinema_in_slider.0.movie.all %}
-                  <br/><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movie.id }}">{{ movie.title }}</a>
+                  <br/><a class="textz" href="/movies/{{ movie.id }}">{{ movie.title }}</a>
                   {% endfor %}
                 </p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../../{{ cinema_in_slider.1.image }}" style="width:100%; height: 20em;" class="d-block w-100" alt="{{ cinema_in_slider.1.name }}">
+              <img src="../../{{ cinema_in_slider.1.image }}" class="carouselimgz d-block w-100" style=" width:100%;height: 20em;" alt="{{ cinema_in_slider.1.name }}">
               <div class="carousel-caption d-none d-md-block">
                 <h5>
-                  <a style="color: floralwhite;text-decoration:none;" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.1.name }}</a>
+                  <a class="textz" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.1.name }}</a>
                 </h5>
                 <p>
                   Movies: {% for movie in cinema_in_slider.1.movie.all %}
-                  <br/><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movie.id }}">{{ movie.title }}</a>
+                  <br/><a class="textz" href="/movies/{{ movie.id }}">{{ movie.title }}</a>
                   {% endfor %}</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../../{{ cinema_in_slider.2.image }}" style="width:100%; height: 20em;" class="d-block w-100" alt="{{ cinema_in_slider.2.name }}">
+              <img src="../../{{ cinema_in_slider.2.image }}" class="carouselimgz d-block w-100" style=" width:100%;height: 20em;" alt="{{ cinema_in_slider.2.name }}">
               <div class="carousel-caption d-none d-md-block">
                 <h5>
-                  <a style="color: floralwhite;text-decoration:none;" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.2.name }}</a>
+                  <a class="textz" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.2.name }}</a>
                 </h5>
                 <p>
                   Movies: {% for movie in cinema_in_slider.2.movie.all %}
-                  <br/><a style="color: floralwhite;text-decoration:none;" href="/movies/{{ movie.id }}">{{ movie.title }}</a>
+                  <br/><a class="textz" href="/movies/{{ movie.id }}">{{ movie.title }}</a>
                   {% endfor %}
                 </p>
               </div>
@@ -69,13 +69,13 @@
   <br>
 
       {% if news_in_index %}
-          <div style="margin: 50px; border: 1px solid thistle; padding: 10px;">
+          <div class="borderz">
           {% for news in news_in_index %}
-              <h3><a style="color: black;text-decoration:none;" href="/news">{{ news.title }}</a></h3>
+              <h3><a class="textx" href="/news">{{ news.title }}</a></h3>
               {% load static %}
 
               <img class="img-fluid" src="../{{ news.image }}" width="600px" />
-              <p style="color: black;">{{ news.body }}</p>
+              <p class="textx">{{ news.body }}</p>
               <hr>
           {% endfor %}
           </div>
