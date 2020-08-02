@@ -493,3 +493,8 @@ def contact(request):
         return JsonResponse({'situation': 'Your form has been received!'})
     else:
         return JsonResponse({'situation': 'Invalid request!'})
+
+
+def location(request):
+    conetxt = {'latitude': request.GET.get('latitude')}
+    return render(request, 'location_sender.html', conetxt)

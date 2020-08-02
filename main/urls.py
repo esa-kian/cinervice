@@ -20,4 +20,5 @@ urlpatterns = [
     path('movie_theaters/vote/', views.cinema_rate, name='cinema_rate'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
+    path('location/', views.location, name='location'),
 ]
