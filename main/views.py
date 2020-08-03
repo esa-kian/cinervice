@@ -484,17 +484,22 @@ def about(request):
 def contact(request):
     if request.method == "GET":
         return render(request, 'contact.html')
+
     elif request.method == "POST":
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         contact_form = Contact_Form(
             email=email, subject=subject)
         contact_form.save()
-        return JsonResponse({'situation': 'Your form has been received!'})
+
+        return render(request, 'contact.html', {'situation': 'Your form has been received!'})
+
     else:
-        return JsonResponse({'situation': 'Invalid request!'})
+        return render(request, 'contact.html', {'situation': 'Invalid request!'})
+
 
 
 def location(request):
-    conetxt = {'latitude': request.GET.get('latitude')}
+    conetxt = {'latitude': 'bullshit'}
+    print(request.POST)
     return render(request, 'location_sender.html', conetxt)

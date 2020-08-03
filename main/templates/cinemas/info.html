@@ -18,6 +18,12 @@
                 {% load static %}
                 <img class="img-fluid" src="../../{{ movie_theater.image }}" width="600px"  />
                 <div class="txt-center">
+                    {% if situation %}
+                        <div class="alert alert-danger">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          {{ situation }} <a class="nav-link" href="{% url 'accounts:login' %}">Here</a>
+                        </div>
+                    {% endif%}
                     <form action="{% url 'main:cinema_rate' %}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" value="{{ movie_theater.id }}" name="cinema-id"/>

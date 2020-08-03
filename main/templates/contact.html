@@ -3,6 +3,15 @@
           Contact
     {% endblock %}
     {% block content %}
+
+    {% if situation %}
+      <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ situation }}
+      </div>
+
+    {% endif%}
+
     <form class="container pt-3" action="/contact/" method="POST">
       {% csrf_token %}
       <div class="form-group">
@@ -15,4 +24,5 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
     {% endblock %}

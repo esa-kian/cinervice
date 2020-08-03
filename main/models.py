@@ -2,13 +2,12 @@ from django.db import models
 from django import forms
 from django.contrib import auth
 from django.conf import settings
-# from django.contrib.gis.geoip2 import GeoIP2
-# Create your models here.
+
 
 class People(models.Model):
     image = models.ImageField(upload_to='static/images/people',null=True)
     full_name = models.CharField(max_length=300)
-    birth_date = models.DateTimeField()
+    birth_date = models.DateTimeField(null = True)
     birth_place = models.CharField(max_length=300,null=True)
     comment = models.TextField(null=True)
 
@@ -18,7 +17,7 @@ class People(models.Model):
 class Movie(models.Model):
     image = models.ImageField(upload_to='static/images/movies',null=True)
     title = models.CharField(max_length=200)
-    publish_year = models.DateTimeField()
+    publish_year = models.DateTimeField(null = True)
     comment = models.TextField(null=True)
     genre = models.CharField(max_length=100)
 
@@ -28,8 +27,8 @@ class Movie(models.Model):
 class Series(models.Model):
     image = models.ImageField(upload_to='static/images/series',null=True)
     title = models.CharField(max_length=200)
-    start_year = models.DateTimeField()
-    end_year = models.DateTimeField()
+    start_year = models.DateTimeField(null = True)
+    end_year = models.DateTimeField(null = True)
     comment = models.TextField(null=True)
     genre = models.CharField(max_length=100)
 
@@ -39,8 +38,10 @@ class Series(models.Model):
 class Cinema(models.Model):
     image = models.ImageField(upload_to='static/images/cinemas', null=True, blank=True)
     name = models.CharField(max_length=300)
-    establish_date = models.DateTimeField()
+    establish_date = models.DateTimeField(null = True)
     address = models.TextField(null = True)
+    latitude = models.IntegerField(null=True)
+    longitude = models.IntegerField(null=True)
     movie = models.ManyToManyField(Movie)
 
     def __str__(self):
@@ -95,4 +96,4 @@ class Contact_Form(models.Model):
     email = models.EmailField(max_length=300, null=False)
     subject = models.TextField(null=False, blank=False)
     def __str__(self):
-        return self.first_name + ' ' + self.last_name + ': ' + self.subject
+        return self.email + ' ' + ': ' + self.subject
