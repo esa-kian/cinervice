@@ -2,7 +2,7 @@ body{
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: linear-gradient(to right, #b92b27, #1565c0)
+  background:#1e223b
 }
 .borderz {
   margin: 50px;
@@ -12,14 +12,17 @@ body{
 .textz {
   color: floralwhite;
   text-decoration:none;
-
+}
+.textx {
+  color: black;
+  text-decoration:none;
 }
 /* Slideshow  */
 .carousel-inner img {
   width: 100%;
   height: 100%;
 }
-.carouselimg {
+.carouselimgz {
   width:100%; 
   height: 20em;
 }
