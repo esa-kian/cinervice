@@ -55,7 +55,7 @@
                     {% if actors %}
                         Actors: 
                         {% for actor in actors %}
-                            <a class="textz" href="/people/{{ actor.person.id}}">{{ actor.person.full_name }} </a> ,
+                            <a class="textx" href="/people/{{ actor.person.id}}">{{ actor.person.full_name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No actors are available.</p>
@@ -64,7 +64,7 @@
                     {% if directors %}
                         Directors: 
                         {% for director in directors %}
-                            <a class="textz" href="/people/{{ director.person.id}}">{{ director.person.full_name }} </a> ,
+                            <a class="textx" href="/people/{{ director.person.id}}">{{ director.person.full_name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No directors are available.</p>
@@ -73,7 +73,7 @@
                     {% if writers %}
                         Writers: 
                         {% for writer in writers %}
-                            <a class="textz" href="/people/{{ writer.person.id}}">{{ writer.person.full_name }} </a> ,
+                            <a class="textx" href="/people/{{ writer.person.id}}">{{ writer.person.full_name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No writers are available.</p>
@@ -82,7 +82,7 @@
                     {% if cinemas %}
                         Movie Theaters:
                         {% for cinema in cinemas %}
-                            <a class="textz" href="/movie_theaters/{{ cinema.id}}">{{ cinema.name }} </a> ,
+                            <a class="textx" href="/movie_theaters/{{ cinema.id}}">{{ cinema.name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No cinemas are available.</p>

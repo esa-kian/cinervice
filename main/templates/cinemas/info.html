@@ -53,16 +53,16 @@
                     </form>
                 </div>
                 <br>
-                <p class="textz">{{ movie_theater.address }}</p>
+                <p class="textx">{{ movie_theater.address }}</p>
                 {% if rate %}
                     <p>Rate: {{ rate }}<br> Count: {{ count }}</p>
                 {% else %}
                     <p>Nobody voted this.</p>
                 {% endif %}
                 <hr>
-                <p class="textz">Movies: 
+                <p class="textx">Movies: 
                     {% for movie in movie_theater.movie.all %}
-                        <a class="textz" href="/movies/{{ movie.id}}"> {{ movie.title }} </a>
+                        <a class="textx" href="/movies/{{ movie.id}}"> {{ movie.title }} </a>
                     {% endfor %}
                 </p>
                 {% endfor %}
