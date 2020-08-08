@@ -5,9 +5,9 @@
         {% endif %}
     {% endblock %}
     {% block content %}
-    <h1>News:</h1> 
+ 
             {% if page_obj %}
-                <div class="borderz">
+                <div class="borderz mx-auto w-100 container mx-auto">
                 {% for news in page_obj %}
                     <h3><a class="textx" href="/news">{{ news.title }}</a></h3>
                     {% load static %}

@@ -11,7 +11,7 @@
     {% endblock %}
     {% block content %}
         {% if info %}
-            <div class="borderz">
+            <div class="borderz mx-auto w-100 container mx-auto">
                 {% for people in info %}
                 <h3><a class="textx" href="/people/{{ people.id }}">{{ people.full_name }}</a></h3>
                 {% load static %}

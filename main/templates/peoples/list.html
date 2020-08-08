@@ -5,9 +5,9 @@
         {% endif %}
     {% endblock %}
     {% block content %}
-    <h1>Celebrities:</h1> 
+    <h1 class="container">Celebrities:</h1> 
     {% if page_obj %}
-                <div class="borderz">
+                <div class="borderz mx-auto w-100 container mx-auto">
                 {% for peoples in page_obj %}
                     <h3><a class="textx" href="/people/{{ peoples.id}}">{{ peoples.full_name }}</a></h3>
                     {% load static %}

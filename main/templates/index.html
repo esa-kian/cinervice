@@ -4,7 +4,7 @@
   Where to Find The Favorite Movie
   {% endblock %}
     {% block content %}
-    <div class="bd-example borderz">
+    <div class="bd-example borderz w-50 container">
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -15,8 +15,8 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
 
-              <img src="../../{{ cinema_in_slider.0.image }}" class="carouselimgz d-block w-100" style=" width:100%;height: 20em;" alt="{{ cinema_in_slider.0.name }}">
-              <div style=" position: relative;left: 0;top: 0" class="carousel-caption d-none d-md-block bg-dark mb-4">
+              <img src="../../{{ cinema_in_slider.0.image }}" class="d-block w-100 img-fluid" alt="{{ cinema_in_slider.0.name }}">
+              <div style="background: linear-gradient( rgba(0,0,0,0), rgba(0,0,0,1));bottom: 0;" class="carousel-caption d-none d-md-block" >
                 <h5>
                   <a class="textz" href="/movie_theaters/{{ cinema_in_slider.0.id }}">{{ cinema_in_slider.0.name }}</a>
                 </h5>
@@ -28,8 +28,8 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../../{{ cinema_in_slider.1.image }}" class="carouselimgz d-block w-100" style=" width:100%;height: 20em;" alt="{{ cinema_in_slider.1.name }}">
-              <div style=" position: relative;left: 0;top: 0" class="carousel-caption d-none d-md-block bg-dark mb-4">
+              <img src="../../{{ cinema_in_slider.1.image }}" class="d-block w-100 img-fluid" alt="{{ cinema_in_slider.1.name }}">
+              <div style="background: linear-gradient( rgba(0,0,0,0), rgba(0,0,0,1));bottom: 0;" class="carousel-caption d-none d-md-block">
                 <h5>
                   <a class="textz" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.1.name }}</a>
                 </h5>
@@ -40,8 +40,8 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="../../{{ cinema_in_slider.2.image }}" class="carouselimgz d-block w-100" style=" width:100%;height: 20em;" alt="{{ cinema_in_slider.2.name }}">
-              <div style=" position: relative;left: 0;top: 0" class="carousel-caption d-none d-md-block bg-dark mb-4">
+              <img src="../../{{ cinema_in_slider.2.image }}" class="d-block w-100 img-fluid" alt="{{ cinema_in_slider.2.name }}">
+              <div style="background: linear-gradient( rgba(0,0,0,0), rgba(0,0,0,1));bottom: 0;" class="carousel-caption d-none d-md-block">
                 <h5>
                   <a class="textz" href="/movie_theaters/{{ cinema_in_slider.2.id }}">{{ cinema_in_slider.2.name }}</a>
                 </h5>
@@ -68,9 +68,9 @@
     </div>
   <br>
   <!-- card suggestion -->
-  <div style="margin: inherit;" class="card-deck">
+  <div class="card-deck borderz w-100 container mx-auto">
     <div style="background-color:inherit" class="card text-center">
-      <img class="card-img-top smallimg mx-auto" src="/static/images/movies/images.jpeg" alt="movie" style="width:60%;" >
+      <img class="card-img-top smallimg mx-auto img-fluid" src="/static/images/movies/images.jpeg" alt="movie"  >
       <div class="card-body">
         <h5 class="card-title ">name of the movie?</h5>
         <p class="card-text">you like this movie?</p>
@@ -80,7 +80,7 @@
       </div>
     </div>
     <div style="background-color:inherit" class="card text-center">
-      <img class="card-img-top smallimg mx-auto" src="/static/images/movies/images_1.jpeg" alt="movie" style="width:60%;">
+      <img class="card-img-top smallimg mx-auto img-fluid" src="/static/images/movies/images_1.jpeg" alt="movie">
       <div class="card-body">
         <h5 class="card-title">name of the movie?</h5>
         <p class="card-text">you like this movie?</p>
@@ -90,7 +90,7 @@
       </div>
     </div>
     <div style="background-color:inherit" class="card text-center">
-      <img class="card-img-top smallimg mx-auto" src="/static/images/movies/images_3.jpeg" alt="movie" style="width:60%;">
+      <img class="card-img-top smallimg mx-auto img-fluid" src="/static/images/movies/images_3.jpeg" alt="movie">
       <div class="card-body">
         <h5 class="card-title">name of the movie?</h5>
         <p class="card-text">you like this movie?</p>
@@ -102,7 +102,7 @@
   </div>
 
       {% if news_in_index %}
-          <div class="borderz">
+          <div class="borderz mx-auto w-100 container mx-auto">
           {% for news in news_in_index %}
               <h3><a class="textx" href="/news">{{ news.title }}</a></h3>
               {% load static %}

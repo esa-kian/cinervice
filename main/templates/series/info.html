@@ -11,7 +11,7 @@
     {% endblock %}
     {% block content %}
         {% if info %}
-            <div class="borderz">
+            <div class="borderz mx-auto w-100 container mx-auto">
                 {% for seri in info %}
                 <h3><a class="textx" href="/tv_shows/{{ seri.id }}">{{ seri.title }}</a></h3>
                 {% load static %}
@@ -74,7 +74,7 @@
                     {% if writers %}
                         Writers: 
                         {% for writer in writers %}
-                            <a class="textz" href="/people/{{ writer.person.id}}">{{ writer.person.full_name }} </a> ,
+                            <a class="textx" href="/people/{{ writer.person.id}}">{{ writer.person.full_name }} </a> ,
                         {% endfor %}
                     {% else %}
                         <p>No writers are available.</p>
