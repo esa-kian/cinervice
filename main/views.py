@@ -49,7 +49,7 @@ def index(request):
                 for ii in all_role_of_fav_people:
                     # filter popular movie of popular people
                     fav_movie_filtered = Movies_Vote.objects.filter(
-                        movie=ii.movie_id, user_id=request.user.id).exclude(vote__lt=rate_avg_movie)
+                        movie=ii.movie_id, user_id=request.user.id).exclude(vote__lte=rate_avg_movie)
 
                     for iii in fav_movie_filtered:
                         # fetch all role in popular movie
@@ -101,7 +101,7 @@ def index(request):
 
                     # find unpopular people
                     unpopular_people = People_Vote.objects.filter(
-                        user_id=request.user.id, people=ii.person_id, vote__lt=rate_avg_people)
+                        user_id=request.user.id, people=ii.person_id, vote__lte=rate_avg_people)
 
                     for ix in unpopular_people:
 
@@ -120,11 +120,6 @@ def index(request):
                                 person=ixi.person_id, type_of_product='M')
 
                             for ixii in all_movie_of_best_role:
-
-                                # movie_of_best_role = Movie.objects.filter(
-                                #     id=ixii.movie_id)
-
-                                # for tmp in all_movie_of_best_role:
                                     
                                 # find unpopular movie
                                 unpopular_movie = Movies_Vote.objects.filter(
@@ -194,7 +189,7 @@ def index(request):
 
                     # find unpopular people
                     unpopular_people = People_Vote.objects.filter(
-                        user_id=request.user.id, people=ii.person_id, vote__lt=rate_avg_people)
+                        user_id=request.user.id, people=ii.person_id, vote__lte=rate_avg_people)
 
                     for ix in unpopular_people:
 
@@ -203,80 +198,63 @@ def index(request):
                             person=ix.people_id)
 
                         # remove unpopular role
-                        all_role_in_fav_serial.filter(
-                            id__in=fetch_unpopular_people).delete()
+                        all_role_in_fav_serial = all_role_in_fav_serial.difference(
+                            fetch_unpopular_people)
 
                         for ixi in all_role_in_fav_serial:
 
-                            # fetch all movie of best role
-                            all_movie_of_best_role = Role.objects.filter(
-                                person=ixi.person_id)
-                            for ixii in all_movie_of_best_role:
+                             # find unpopular movie
+                                unpopular_movie = Movies_Vote.objects.filter(
+                                    user_id=request.user.id, movie=ixii.movie_id, vote__lte=rate_avg_movie)
+                                for aux in unpopular_movie:
 
-                                movie_of_best_role = Movie.objects.filter(
-                                    id=ixii.movie_id)
+                                    # fetch unpopular movie
+                                    fetch_unpopular_movie = Role.objects.filter(movie=aux.movie_id)
+                                    
+                                    # remove unpopular movie
+                                    all_movie_of_best_role = all_movie_of_best_role.difference(fetch_unpopular_movie)
 
-                                for tmp in movie_of_best_role:
+                                    # fetch all role in popular movie   
+                                    sum_rate_of_people_in_movie = 0
 
-                                    # find unpopular movie
-                                    unpopular_movie = Movies_Vote.objects.filter(
-                                        user_id=request.user.id, movie=tmp.id, vote__lt=rate_avg_movie)
-
-                                    for aux in unpopular_movie:
-
-                                        # fetch unpopular movie
-                                        fetch_unpopular_movie = Movie.objects.filter(
-                                            id=aux.movie_id)
-
-                                        # remove unpopular movie
-                                        movie_of_best_role.filter(
-                                            id__in=fetch_unpopular_movie).delete()
-
-                                        for iii in movie_of_best_role:
-
-                                            # fetch all role in popular movie
-                                            all_role_in_fav_movie_by_people = Role.objects.filter(
-                                                movie=iii.movie_id)
+                                    # calculate average rate of popular movie
+                                    for calc in all_movie_of_best_role:
+                                        try:
+                                            sum_rate_of_people_in_movie += People_Vote.objects.filter(people=calc.person_id,
+                                                                                                        user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
+                                        except:
                                             sum_rate_of_people_in_movie = 0
+                                    if all_movie_of_best_role.count() != 0:
+                                        avg_rate_of_people_in_movie = sum_rate_of_people_in_movie / \
+                                            all_movie_of_best_role.count()
+                                    # filter people that less than average rate
+                                    if avg_rate_of_people_in_movie >= rate_avg_people:
 
-                                            # calculate average rate of popular movie
-                                            for calc in all_role_in_fav_movie_by_people:
-                                                try:
-                                                    sum_rate_of_people_in_movie += People_Vote.objects.filter(people=calc.person_id,
-                                                                                                              user_id=request.user.id).aggregate(Avg('vote')).get('vote__avg')
-                                                except:
-                                                    sum_rate_of_people_in_movie = 0
-                                            avg_rate_of_people_in_movie = sum_rate_of_people_in_movie / \
-                                                all_role_in_fav_movie_by_people.count()
+                                        for iv in all_movie_of_best_role:
 
-                                            # filter people that less than average rate
-                                            if avg_rate_of_people_in_movie >= rate_avg_people:
+                                            # fetch all cinema by fav movie
+                                            cinema_by_filtered_movie = Cinema.objects.filter(
+                                                movie=iv.movie_id)
 
-                                                for iv in all_role_in_fav_movie_by_people:
+                                            for v in cinema_by_filtered_movie:
 
-                                                    # fetch all cinema by fav movie
-                                                    cinema_by_filtered_movie = Cinema.objects.filter(
-                                                        movie=iv.movie_id)
+                                                # find unpopular cinema
+                                                unpopular_cinema = Cinema_Vote.objects.filter(
+                                                    user_id=request.user.id, cinema_id=v.id, vote__lte=rate_avg_cinema)
 
-                                                    for v in cinema_by_filtered_movie:
+                                                for vi in unpopular_cinema:
+                                                    print(vi.cinema)
+                                                    # fetch unpopular cinema
+                                                    fetch_unpopular_cinema = Cinema.objects.filter(
+                                                        id=vi.cinema_id)
 
-                                                        # find unpopular cinema
-                                                        unpopular_cinema = Cinema_Vote.objects.filter(
-                                                            user_id=request.user.id, cinema=v.id, vote__lt=rate_avg_cinema)
+                                                    cinema_by_filtered_movie = cinema_by_filtered_movie.difference(
+                                                        fetch_unpopular_cinema)
 
-                                                        for aux in unpopular_cinema:
-                                                            # fetch unpopular cinema
-                                                            fetch_unpopular_cinema = Cinema.objects.filter(
-                                                                id=aux.cinema_id)
-
-                                                            # for it in fetch_unpopular_cinema:
-                                                            cinema_by_filtered_movie.filter(
-                                                                id__in=fetch_unpopular_cinema).delete()
-
-                                                            for j in cinema_by_filtered_movie:
-                                                                # append cinema filtered
-                                                                cinema_in_slider_by_serial.append(
-                                                                    j)
+                                                    for j in cinema_by_filtered_movie:
+                                                        # append cinema filtered
+                                                        cinema_in_slider_by_serial.append(
+                                                            j)
 
             cinema_in_slider = list(chain(
                 cinema_in_slider_by_movie, cinema_in_slider_by_people, cinema_in_slider_by_serial))
