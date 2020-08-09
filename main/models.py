@@ -40,8 +40,8 @@ class Cinema(models.Model):
     name = models.CharField(max_length=300)
     establish_date = models.DateTimeField(null = True)
     address = models.TextField(null = True)
-    latitude = models.IntegerField(null=True)
-    longitude = models.IntegerField(null=True)
+    latitude = models.IntegerField(null=True, blank = True)
+    longitude = models.IntegerField(null=True, blank = True)
     movie = models.ManyToManyField(Movie)
 
     def __str__(self):
